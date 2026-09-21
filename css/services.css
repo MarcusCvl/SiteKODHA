@@ -1,0 +1,104 @@
+/*==========mobile==========*/
+.services {
+  padding: 4rem 0;
+}
+.services-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-bottom: 2.25rem;
+}
+.services-title {
+  margin-top: 0.75rem;
+  font-family: var(--ftitle);
+  font-size: clamp(1.75rem, 6vw, 2.35rem);
+  font-weight: var(--title-weight);
+  letter-spacing: -0.02em;
+  color: var(--title-color);
+}
+.services-headline {
+  font-size: var(--fs-detail);
+  line-height: 1.75;
+  color: var(--text-color);
+}
+.services-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+.services-cards-item {
+  display: flex;
+  flex-direction: column;
+  min-height: 13rem;
+  padding: 1.875rem 1.75rem 1.625rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: linear-gradient(165deg, var(--card-color), var(--secondary-background));
+  transition: all 0.42s;
+}
+.services-cards-item:hover {
+  border-color: rgba(63, 107, 255, 0.55);
+  transform: translateY(-3px);
+}
+.services-cards-item .icon {
+  width: 1.625rem;
+  height: 1.625rem;
+  margin-bottom: 1.5rem;
+}
+.services-cards-item-title {
+  margin-bottom: 0.625rem;
+  font-size: 1.05rem;
+}
+.services-cards-item-text {
+  max-width: 30ch;
+  font-size: var(--fs-detail);
+  color: var(--text-color);
+}
+.services-cards-item-link {
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: 1.375rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--primary-color);
+}
+.services-cards-item:hover .arrow {
+  transform: translateX(5px);
+}
+.services-cards-item.reveal:nth-child(1) {
+  transition-delay: 0s;
+}
+.services-cards-item.reveal:nth-child(2) {
+  transition-delay: 0.09s;
+}
+.services-cards-item.reveal:nth-child(3) {
+  transition-delay: 0.18s;
+}
+/*==========tablet==========*/
+@media screen and (min-width: 768px) {
+  .services {
+    padding: 5rem 0;
+  }
+  .services-header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .services-cards {
+    flex-direction: row;
+  }
+  .services-cards-item {
+    flex: 1;
+  }
+}
+/*==========desktop==========*/
+@media screen and (min-width: 1024px) {
+  .services {
+    padding: 6.5rem 0;
+  }
+  .services-cards {
+    gap: 1.375rem;
+  }
+}

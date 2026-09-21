@@ -1,0 +1,29 @@
+/* ==========================================================================
+   PROJETOS
+   ========================================================================== */
+.projetos{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,22px)}
+.projeto__capa{
+  position:relative;aspect-ratio:16/11;border-radius:var(--r-md);overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--linha);margin-bottom:16px;
+  transition:border-color var(--t-media),transform var(--t-media);
+}
+.projeto:hover .projeto__capa{border-color:rgba(63,107,255,.5);transform:translateY(-3px)}
+.projeto__capa span{
+  font-size:clamp(.95rem,1.5vw,1.2rem);letter-spacing:.2em;text-transform:uppercase;
+  text-align:center;line-height:1.5;color:var(--branco);opacity:.92;
+}
+.projeto__capa em{display:block;font-style:normal;font-size:.55em;letter-spacing:.32em;opacity:.7;margin-top:6px}
+.projeto__capa--1{background:linear-gradient(145deg,#4A4139,#241F1C 62%,#3A322C)}
+.projeto__capa--2{background:linear-gradient(145deg,#16301F,#0A1711 58%,#1C3A27)}
+.projeto__capa--3{background:linear-gradient(145deg,#26262E,#0C0C11 58%,#1E1E26)}
+.projeto h3{font-size:.95rem;margin-bottom:6px}
+.projeto p{color:var(--cinza);font-size:.78rem}
+
+@media (max-width:900px){
+  .projetos{grid-template-columns:1fr 1fr}
+}
+
+@media (max-width:560px){
+  .projetos{grid-template-columns:1fr}
+}

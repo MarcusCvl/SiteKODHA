@@ -1,0 +1,46 @@
+/* ==========================================================================
+   CONTATO / FORM
+   ========================================================================== */
+.contato__grid{
+  display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  gap:clamp(32px,5vw,72px);align-items:start;
+}
+.form{display:grid;gap:12px}
+.form__linha{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.campo{position:relative;display:block}
+.campo input,.campo select,.campo textarea{
+  width:100%;
+  background:var(--carvao-2);
+  border:1px solid var(--linha);border-radius:var(--r-sm);
+  color:var(--branco);
+  font-family:inherit;font-size:.87rem;
+  padding:15px 16px;
+  transition:border-color var(--t-rapida),background var(--t-rapida);
+  appearance:none;-webkit-appearance:none;
+}
+.campo textarea{resize:vertical;min-height:96px;line-height:1.6}
+.campo input::placeholder,.campo textarea::placeholder{color:var(--cinza);opacity:.85}
+.campo select{color:var(--cinza);cursor:pointer;padding-right:44px}
+.campo select.tem-valor{color:var(--branco)}
+.campo select option{background:var(--carvao-2);color:var(--branco)}
+.campo input:hover,.campo select:hover,.campo textarea:hover{border-color:var(--linha-forte)}
+.campo input:focus,.campo select:focus,.campo textarea:focus{
+  outline:none;border-color:var(--azul);background:var(--carvao-3);
+}
+.campo.tem-erro input,.campo.tem-erro select{border-color:#FF5C5C}
+.campo__chevron{
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  width:18px;height:18px;pointer-events:none;
+}
+.campo__chevron svg{width:100%;height:100%;fill:none;stroke:var(--cinza);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.form__status{font-size:.82rem;color:var(--cinza);min-height:1.2em;margin-top:4px}
+.form__status.ok{color:var(--azul)}
+.form__status.erro{color:#FF7A7A}
+
+@media (max-width:900px){
+  .contato__grid{grid-template-columns:1fr}
+}
+
+@media (max-width:560px){
+  .form__linha{grid-template-columns:1fr}
+}

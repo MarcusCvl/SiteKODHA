@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css?v=4" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/favicon.svg" />
+    <title>KODHA | Sites e identidade visual para profissionais independentes</title>
+    <meta
+      name="description"
+      content="A KODHA cria identidade visual, landing pages e sites institucionais para profissionais independentes. Estratégia, design e tecnologia para sua marca existir além do Instagram."
+    />
+    <meta name="author" content="KODHA" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0B0B0F" />
+    <link rel="canonical" href="https://kodha.com.br/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="KODHA" />
+    <meta property="og:title" content="KODHA | Sua marca além do Instagram" />
+    <meta
+      property="og:description"
+      content="Estratégia, design e tecnologia para profissionais independentes que querem mais do que likes: querem um negócio real."
+    />
+    <meta property="og:image" content="https://kodha.com.br/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://kodha.com.br/" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="KODHA | Sua marca além do Instagram" />
+    <meta
+      name="twitter:description"
+      content="Identidade visual, landing pages e sites institucionais para profissionais independentes."
+    />
+    <meta name="twitter:image" content="https://kodha.com.br/assets/og-image.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "KODHA",
+        "url": "https://kodha.com.br/",
+        "logo": "https://kodha.com.br/assets/logo-kodha-horizontal.svg",
+        "image": "https://kodha.com.br/assets/og-image.png",
+        "description": "Identidade visual, landing pages e sites institucionais para profissionais independentes.",
+        "slogan": "Sua marca além do Instagram",
+        "areaServed": { "@type": "Country", "name": "Brasil" },
+        "availableLanguage": "pt-BR",
+        "priceRange": "$$",
+        "knowsAbout": [
+          "Identidade visual",
+          "Landing page",
+          "Site institucional",
+          "SEO",
+          "Design de interface"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Serviços da KODHA",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Identidade visual",
+                "description": "Uma marca memorável, estratégica e com propósito."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Landing page",
+                "description": "Páginas que convertem visitantes em clientes."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Site institucional",
+                "description": "Seu negócio com mais credibilidade e autonomia."
+              }
+            }
+          ]
+        }
+      }
+    </script>
+  </head>
+
+  <body id="topo">
+    <!-- fio de conexão: fundo da página inteira, desenhado em js/connector.js -->
+    <div class="connector" aria-hidden="true">
+      <svg preserveAspectRatio="none" viewBox="0 0 1440 5000">
+        <defs>
+          <linearGradient id="connector-gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#3F6BFF" stop-opacity="0" />
+            <stop offset=".08" stop-color="#3F6BFF" stop-opacity=".55" />
+            <stop offset=".34" stop-color="#3F6BFF" stop-opacity=".22" />
+            <stop offset=".58" stop-color="#3F6BFF" stop-opacity=".5" />
+            <stop offset=".82" stop-color="#3F6BFF" stop-opacity=".2" />
+            <stop offset="1" stop-color="#3F6BFF" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+        <path
+          class="connector-line"
+          d=""
+          fill="none"
+          stroke="url(#connector-gradient)"
+          stroke-width="1.4"
+          stroke-linecap="round"
+          vector-effect="non-scaling-stroke"
+        />
+      </svg>
+    </div>
+
+    <!-- símbolo da marca, reaproveitado com <use> no header e no rodapé -->
+    <svg class="sprite" aria-hidden="true" focusable="false">
+      <symbol id="simbolo" viewBox="0 0 220.54 312.62">
+        <path class="simbolo-azul" d="M0 312.613 13.949 67.094h41.852L41.852 312.613Z" />
+        <path class="simbolo-azul" d="M115.121 147.57 84.34 96.281 180.621 0l30.77 51.301Z" />
+        <path class="simbolo-branco" d="M72.969 191.703 124.262 160.922 220.539 257.191 169.238 288.973Z" />
+      </symbol>
+    </svg>
+
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+    <header class="header">
+      <div class="header-content">
+        <a class="logo" href="#topo" title="Voltar ao topo">
+          <svg class="logo-simbolo" aria-hidden="true"><use href="#simbolo"></use></svg>
+          KODHA
+        </a>
+
+        <div class="navigation">
+          <input type="checkbox" id="menu" hidden />
+          <label for="menu" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </label>
+
+          <nav class="navbar">
+            <ul class="nav-list">
+              <li><a class="nav-link" href="#servicos" title="Navegar até a seção de serviços">Serviços</a></li>
+              <li><a class="nav-link" href="#processo" title="Navegar até a seção de processo">Processo</a></li>
+              <li><a class="nav-link" href="#projetos" title="Navegar até a seção de projetos">Projetos</a></li>
+              <li><a class="nav-link" href="#contato" title="Navegar até a seção de contato">Contato</a></li>
+            </ul>
+            <a class="btn-header" href="#contato" title="Ir para o formulário de contato">Vamos conversar</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <!--==========hero==========-->
+      <section class="hero" id="inicio">
+        <div class="hero-bg" aria-hidden="true">
+          <div class="hero-mockup">
+            <p class="hero-note">Dependente<br />do algoritmo?</p>
+            <div class="mockup">
+              <div class="mockup-screen">
+                <div class="mockup-top"><span></span></div>
+                <div class="mockup-profile">
+                  <span class="mockup-avatar"></span>
+                  <span class="mockup-lines"><b></b><b></b></span>
+                </div>
+                <div class="mockup-grid">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <div class="mockup-bar"><b></b><b></b><b></b><b></b><b></b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-content">
+          <div class="hero-copy reveal">
+            <h1 class="hero-title">Sua marca além<br />do Instagram.</h1>
+            <p class="hero-subtitle">Presença digital que gera negócio.</p>
+
+            <ul class="hero-benefits">
+              <li>
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M4 20V13M10 20V8M16 20V4" /></svg>
+                </span>
+                Mais autonomia
+              </li>
+              <li>
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="8" r="3.4" />
+                    <path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6" />
+                  </svg>
+                </span>
+                Mais clientes
+              </li>
+              <li>
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M13 3 5.5 13.5H11L10.5 21 18.5 10.5H13Z" /></svg>
+                </span>
+                Mais resultado
+              </li>
+            </ul>
+
+            <div class="hero-cta">
+              <a class="primary-button" href="#contato">Vamos conversar <span class="arrow" aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-footer">
+          <div class="hero-footer-content">
+            <p class="section-title">Estratégia <span>·</span> Design <span>·</span> Resultado</p>
+            <p class="hero-manifesto">Algoritmos limitam ideias. Marcas fortes constroem liberdade.</p>
+          </div>
+        </div>
+      </section>
+
+      <!--==========essência==========-->
+      <section class="essence" id="essencia">
+        <div class="essence-content">
+          <div class="essence-copy reveal">
+            <h2 class="section-title">Nossa essência</h2>
+            <p class="essence-title">Construímos a casa digital da sua marca.</p>
+            <p class="essence-text">
+              Estratégia, design e tecnologia para profissionais independentes que querem mais do
+              que likes: querem um negócio real.
+            </p>
+          </div>
+
+          <figure class="essence-img reveal">
+            <svg class="house" viewBox="0 0 520 320" role="img" aria-label="Ilustração de uma casa moderna iluminada">
+              <defs>
+                <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#3F6BFF" stop-opacity=".48" />
+                  <stop offset="1" stop-color="#3F6BFF" stop-opacity=".06" />
+                </linearGradient>
+                <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#3F6BFF" stop-opacity=".22" />
+                  <stop offset="1" stop-color="#3F6BFF" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+
+              <rect x="96" y="292" width="330" height="26" fill="url(#ground)" />
+
+              <g class="house-glass">
+                <rect x="116" y="168" width="128" height="96" />
+                <rect x="268" y="184" width="74" height="80" />
+                <rect x="206" y="104" width="182" height="40" />
+              </g>
+
+              <g class="house-lines">
+                <path d="M96 292V150h250v142" />
+                <path d="M176 150V92h250v200" />
+                <path d="M96 150h250" />
+                <path d="M176 92h250" />
+                <path d="M116 168h128v96h-128z" />
+                <path d="M268 184h74v80h-74z" />
+                <path d="M206 104h182v40h-182z" />
+                <path d="M180 168v96M212 168v96M306 184v80M266 104v40M328 104v40" />
+                <path d="M36 292h456" />
+              </g>
+
+              <rect class="house-door" x="366" y="212" width="24" height="80" />
+              <circle class="house-core" cx="426" cy="92" r="4" />
+            </svg>
+            <figcaption class="essence-caption">Sua marca<br />seu território</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!--==========serviços==========-->
+      <section class="services" id="servicos">
+        <div class="services-header reveal">
+          <div>
+            <h2 class="section-title">Serviços</h2>
+            <p class="services-title">Serviços</p>
+          </div>
+          <p class="services-headline">
+            Da estratégia ao lançamento,<br />tudo para sua marca existir além do feed.
+          </p>
+        </div>
+
+        <div class="services-cards">
+          <article class="services-cards-item reveal">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 20l1-4.5L15.5 5a2.1 2.1 0 013 3L8 18.5 3.5 20" />
+                <path d="M13.5 7 17 10.5" />
+              </svg>
+            </span>
+            <h3 class="services-cards-item-title">Identidade visual</h3>
+            <p class="services-cards-item-text">Uma marca memorável, estratégica e com propósito.</p>
+            <a class="services-cards-item-link" href="#contato" aria-label="Falar sobre identidade visual">
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <article class="services-cards-item reveal">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <rect x="3" y="4.5" width="18" height="15" rx="2.2" />
+                <path d="M3 9.5h18M7.5 13h6" />
+              </svg>
+            </span>
+            <h3 class="services-cards-item-title">Landing pages</h3>
+            <p class="services-cards-item-text">Páginas que convertem visitantes em clientes.</p>
+            <a class="services-cards-item-link" href="#contato" aria-label="Falar sobre landing pages">
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <article class="services-cards-item reveal">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3 21.5 8 12 13 2.5 8 12 3Z" />
+                <path d="M2.5 12.5 12 17.5l9.5-5" />
+                <path d="M2.5 16.8 12 21.8l9.5-5" />
+              </svg>
+            </span>
+            <h3 class="services-cards-item-title">Sites institucionais</h3>
+            <p class="services-cards-item-text">Seu negócio com mais credibilidade e autonomia.</p>
+            <a class="services-cards-item-link" href="#contato" aria-label="Falar sobre sites institucionais">
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <!--==========por que trabalhar com a gente==========-->
+      <section class="why">
+        <div class="why-header reveal">
+          <h2 class="section-title">Por que trabalhar com a gente</h2>
+          <p class="why-title">Por que trabalhar com a gente</p>
+        </div>
+
+        <div class="why-cards">
+          <div class="why-cards-item reveal">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M20 12.5c0 3.9-3.6 7-8 7a9 9 0 01-2.6-.4L4 21l1.4-3.7A6.6 6.6 0 014 12.5c0-3.9 3.6-7 8-7s8 3.1 8 7Z" />
+              </svg>
+            </span>
+            <h3 class="why-cards-item-title">Comunicação direta</h3>
+            <p class="why-cards-item-text">Você fala com quem faz. Sem intermediários.</p>
+          </div>
+
+          <div class="why-cards-item reveal">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="8" />
+                <circle cx="12" cy="12" r="3.4" />
+                <path d="M12 12 20.5 3.5" />
+              </svg>
+            </span>
+            <h3 class="why-cards-item-title">Design orientado a resultado</h3>
+            <p class="why-cards-item-text">Estética e estratégia caminhando juntas.</p>
+          </div>
+
+          <div class="why-cards-item reveal">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 20V14M10 20V9M16 20V11M22 20V5" /></svg>
+            </span>
+            <h3 class="why-cards-item-title">Performance e SEO</h3>
+            <p class="why-cards-item-text">Seu site pronto para atrair e ser encontrado.</p>
+          </div>
+        </div>
+      </section>
+
+      <!--==========processo==========-->
+      <section class="process" id="processo">
+        <div class="process-header reveal">
+          <h2 class="section-title">Nosso processo</h2>
+          <p class="process-title">Do briefing ao lançamento em 4 passos</p>
+        </div>
+
+        <ol class="process-steps">
+          <li class="process-steps-item reveal">
+            <span class="process-steps-item-number" aria-hidden="true">01</span>
+            <span class="process-steps-item-track" aria-hidden="true"><span class="dot"></span></span>
+            <h3 class="process-steps-item-title">Descoberta</h3>
+            <p class="process-steps-item-text">Entendemos seu momento, objetivos e público.</p>
+          </li>
+
+          <li class="process-steps-item reveal">
+            <span class="process-steps-item-number" aria-hidden="true">02</span>
+            <span class="process-steps-item-track" aria-hidden="true"><span class="dot"></span></span>
+            <h3 class="process-steps-item-title">Design</h3>
+            <p class="process-steps-item-text">Criamos a estratégia e o visual da sua marca.</p>
+          </li>
+
+          <li class="process-steps-item reveal">
+            <span class="process-steps-item-number" aria-hidden="true">03</span>
+            <span class="process-steps-item-track" aria-hidden="true"><span class="dot"></span></span>
+            <h3 class="process-steps-item-title">Desenvolvimento</h3>
+            <p class="process-steps-item-text">Transformamos o design em um site de alta performance.</p>
+          </li>
+
+          <li class="process-steps-item reveal">
+            <span class="process-steps-item-number" aria-hidden="true">04</span>
+            <span class="process-steps-item-track" aria-hidden="true"><span class="dot"></span></span>
+            <h3 class="process-steps-item-title">Lançamento e suporte</h3>
+            <p class="process-steps-item-text">Seu projeto no ar e com a gente ao seu lado.</p>
+          </li>
+        </ol>
+      </section>
+
+      <!--==========projetos (capas provisórias, trocar por cases reais)==========-->
+      <section class="projects" id="projetos">
+        <div class="projects-header reveal">
+          <div>
+            <h2 class="section-title">Projetos</h2>
+            <p class="projects-title">Projetos selecionados</p>
+          </div>
+          <a class="link-arrow" href="#contato">Ver mais projetos <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+
+        <div class="projects-cards">
+          <article class="projects-cards-item reveal">
+            <div class="projects-cards-item-cover projects-cards-item-cover-1"><span>Clara Mendes</span></div>
+            <h3 class="projects-cards-item-title">Clara Mendes</h3>
+            <p class="projects-cards-item-text">Marca pessoal · Site institucional</p>
+          </article>
+
+          <article class="projects-cards-item reveal">
+            <div class="projects-cards-item-cover projects-cards-item-cover-2">
+              <span>Rafael Lima<em>nutrição</em></span>
+            </div>
+            <h3 class="projects-cards-item-title">Rafael Lima</h3>
+            <p class="projects-cards-item-text">Identidade visual · Landing page</p>
+          </article>
+
+          <article class="projects-cards-item reveal">
+            <div class="projects-cards-item-cover projects-cards-item-cover-3"><span>Studio Áurea</span></div>
+            <h3 class="projects-cards-item-title">Studio Áurea</h3>
+            <p class="projects-cards-item-text">Site institucional · Posicionamento</p>
+          </article>
+        </div>
+      </section>
+
+      <!--==========cta==========-->
+      <section class="cta">
+        <div class="cta-content">
+          <div class="cta-card reveal">
+          <div class="cta-copy">
+            <h2 class="section-title section-title-dark">Próximo passo</h2>
+            <p class="cta-title">Sua marca está pronta<br />para existir além do feed?</p>
+            <p class="cta-text">Vamos tirar seu projeto do papel.</p>
+          </div>
+
+          <div class="cta-aside">
+            <a class="dark-button" href="#contato">Vamos conversar <span class="arrow" aria-hidden="true">→</span></a>
+            <ul class="cta-list">
+              <li>
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="8.5" />
+                    <path d="M12 7.2V12l3.2 2" />
+                  </svg>
+                </span>
+                Resposta em até 24h
+              </li>
+              <li>
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M6 3h8l4 4v14H6z" />
+                    <path d="M14 3v4h4M9 12h6M9 16h6" />
+                  </svg>
+                </span>
+                Orçamento gratuito e sem compromisso
+              </li>
+            </ul>
+          </div>
+          </div>
+        </div>
+      </section>
+
+      <!--==========contato==========-->
+      <section class="contact" id="contato">
+        <div class="contact-content">
+          <div class="contact-copy reveal">
+            <h2 class="section-title">Contato</h2>
+            <p class="contact-title">Fale com a KODHA</p>
+            <p class="contact-text">Conte um pouco sobre seu projeto. Vamos responder em até 24h.</p>
+          </div>
+
+          <form class="form reveal" novalidate>
+            <!-- campo invisível: bot preenche, gente não -->
+            <input class="form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+            <div class="form-row">
+              <label class="form-field">
+                <span class="sr-only">Seu nome</span>
+                <input type="text" name="name" placeholder="Seu nome" autocomplete="name" required />
+              </label>
+              <label class="form-field">
+                <span class="sr-only">Nome do seu negócio</span>
+                <input type="text" name="company" placeholder="Nome do seu negócio" autocomplete="organization" />
+              </label>
+            </div>
+
+            <label class="form-field">
+              <span class="sr-only">Seu telefone (WhatsApp)</span>
+              <input type="tel" name="phone" placeholder="Seu telefone (WhatsApp)" inputmode="tel" autocomplete="tel" required />
+            </label>
+
+            <label class="form-field">
+              <span class="sr-only">Seu e-mail</span>
+              <input type="email" name="email" placeholder="Seu e-mail" autocomplete="email" required />
+            </label>
+
+            <label class="form-field form-field-select">
+              <span class="sr-only">Qual serviço você tem interesse?</span>
+              <select name="selection" required>
+                <option value="">Qual serviço você tem interesse?</option>
+                <option>Identidade visual</option>
+                <option>Landing page</option>
+                <option>Site institucional</option>
+                <option>Ainda não sei / quero conversar</option>
+              </select>
+              <span class="form-field-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m6 9.5 6 6 6-6" /></svg>
+              </span>
+            </label>
+
+            <label class="form-field">
+              <span class="sr-only">Conte um pouco sobre seu projeto</span>
+              <textarea name="message" rows="3" placeholder="Conte um pouco sobre seu projeto (opcional)"></textarea>
+            </label>
+
+            <button class="form-button" type="submit">Enviar mensagem <span class="arrow" aria-hidden="true">→</span></button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <!--==========confiança==========-->
+      <section class="trust">
+        <div class="trust-content">
+          <div class="trust-copy reveal">
+            <h2 class="section-title">Confiança</h2>
+            <p class="trust-title">Parceria para um crescimento real.</p>
+            <p class="trust-text">
+              Mais do que sites e marcas, construímos parcerias de longo prazo com profissionais que
+              acreditam no próprio potencial.
+            </p>
+          </div>
+
+          <ul class="trust-cards reveal">
+            <li class="trust-cards-item">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="8" r="3.4" />
+                  <path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6" />
+                </svg>
+              </span>
+              <strong class="trust-cards-item-title">100%</strong>
+              <span class="trust-cards-item-text">Foco em profissionais independentes</span>
+            </li>
+
+            <li class="trust-cards-item">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 20.5 4.4 13a4.7 4.7 0 117.6-5.4A4.7 4.7 0 1119.6 13Z" />
+                </svg>
+              </span>
+              <strong class="trust-cards-item-title">Atendimento</strong>
+              <span class="trust-cards-item-text">Direto com o time da KODHA</span>
+            </li>
+
+            <li class="trust-cards-item">
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 20V14M10 20V9M16 20V11M22 20V5" /></svg>
+              </span>
+              <strong class="trust-cards-item-title">Projetos</strong>
+              <span class="trust-cards-item-text">Pensados para gerar resultado real</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <a class="logo logo-footer" href="#topo" title="Voltar ao topo">
+            <svg class="logo-simbolo" aria-hidden="true"><use href="#simbolo"></use></svg>
+            KODHA
+          </a>
+          <p class="footer-tagline">Marcas mais livres<br />negócios mais reais</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Navegação do rodapé">
+          <a href="#inicio">Início</a>
+          <a href="#servicos">Serviços</a>
+          <a href="#projetos">Projetos</a>
+          <a href="#contato">Contato</a>
+        </nav>
+
+        <p class="footer-signature">Estratégia hoje.<br />Mais futuro amanhã.<span class="footer-line"></span></p>
+      </div>
+
+      <div class="footer-base">
+        <p>© <span class="footer-year">2026</span> KODHA. Todos os direitos reservados.</p>
+        <p>Feito no Brasil, para quem constrói o próprio caminho.</p>
+      </div>
+    </footer>
+
+    <script src="js/menu.js?v=4" defer></script>
+    <script src="js/reveal.js?v=4" defer></script>
+    <script src="js/connector.js?v=4" defer></script>
+    <script src="js/form.js?v=4" defer></script>
+  </body>
+</html>

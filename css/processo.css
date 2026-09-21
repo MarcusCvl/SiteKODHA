@@ -1,0 +1,35 @@
+/* ==========================================================================
+   PROCESSO — passos
+   ========================================================================== */
+.passos{
+  --gap-passos:clamp(20px,2.4vw,34px);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap-passos);
+  position:relative;
+}
+
+.passo{position:relative;padding-top:0}
+.passo__num{
+  display:block;font-size:clamp(2.6rem,5vw,3.9rem);font-weight:700;line-height:1;
+  color:transparent;-webkit-text-stroke:1.3px rgba(248,248,250,.22);
+  letter-spacing:-.02em;margin-bottom:22px;
+}
+.passo__trilho{display:flex;align-items:center;margin:0 calc(-1 * var(--gap-passos)) 22px 0}
+.passo__trilho::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(63,107,255,.55),rgba(63,107,255,.18))}
+.passo:last-child .passo__trilho::after{display:none}
+.passo__marca{
+  position:relative;display:block;width:13px;height:13px;flex:none;border-radius:50%;
+  border:1.5px solid var(--azul);background:var(--carvao);
+}
+.passo__marca::after{content:"";position:absolute;inset:3.2px;border-radius:50%;background:var(--azul);opacity:.9}
+.passo h3{font-size:.98rem;margin-bottom:10px}
+.passo p{color:var(--cinza);font-size:.82rem;max-width:28ch}
+
+@media (max-width:900px){
+  .passos{grid-template-columns:1fr 1fr;gap:30px}
+  .passo__trilho{margin-right:0}
+  .passo__trilho::after{display:none}
+}
+
+@media (max-width:560px){
+  .passos{grid-template-columns:1fr;gap:26px}
+}

@@ -1,0 +1,120 @@
+/*==========mobile==========*/
+.process {
+  padding: 4rem 0;
+}
+.process-header {
+  margin-bottom: 2.25rem;
+}
+.process-title {
+  margin-top: 0.75rem;
+  font-family: var(--ftitle);
+  font-size: clamp(1.75rem, 6vw, 2.35rem);
+  font-weight: var(--title-weight);
+  letter-spacing: -0.02em;
+  color: var(--title-color);
+}
+.process-steps {
+  --gap-steps: 1.625rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-steps);
+}
+.process-steps-item-number {
+  display: block;
+  margin-bottom: 1rem;
+  font-family: var(--ftitle);
+  font-size: clamp(2.6rem, 10vw, 3.9rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1.3px rgba(248, 248, 250, 0.22);
+}
+/* o trilho liga um passo ao outro: a linha sai do ponto e vai até o próximo */
+.process-steps-item-track {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.375rem;
+}
+.process-steps-item-track::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(63, 107, 255, 0.55), rgba(63, 107, 255, 0.18));
+}
+.process-steps-item:last-child .process-steps-item-track::after {
+  display: none;
+}
+.process-steps-item-track .dot {
+  position: relative;
+  display: block;
+  width: 13px;
+  height: 13px;
+  flex: none;
+  border: 1.5px solid var(--primary-color);
+  border-radius: 50%;
+  background-color: var(--background-color);
+}
+.process-steps-item-track .dot::after {
+  content: "";
+  position: absolute;
+  inset: 3.2px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  opacity: 0.9;
+}
+.process-steps-item-title {
+  margin-bottom: 0.625rem;
+  font-size: 0.98rem;
+}
+.process-steps-item-text {
+  max-width: 28ch;
+  font-size: var(--fs-detail);
+  color: var(--text-color);
+}
+.process-steps-item.reveal:nth-child(1) {
+  transition-delay: 0s;
+}
+.process-steps-item.reveal:nth-child(2) {
+  transition-delay: 0.09s;
+}
+.process-steps-item.reveal:nth-child(3) {
+  transition-delay: 0.18s;
+}
+.process-steps-item.reveal:nth-child(4) {
+  transition-delay: 0.27s;
+}
+/*==========tablet==========*/
+@media screen and (min-width: 768px) {
+  .process {
+    padding: 5rem 0;
+  }
+  .process-steps {
+    --gap-steps: 1.875rem;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .process-steps-item {
+    flex: 1 1 calc(50% - var(--gap-steps));
+  }
+}
+/*==========desktop==========*/
+@media screen and (min-width: 1024px) {
+  .process {
+    padding: 6.5rem 0;
+  }
+  .process-steps {
+    --gap-steps: 2.125rem;
+
+    flex-wrap: nowrap;
+  }
+  .process-steps-item {
+    flex: 1;
+  }
+  /* o trilho invade o gap para encostar no ponto seguinte */
+  .process-steps-item-track {
+    margin-right: calc(-1 * var(--gap-steps));
+  }
+}

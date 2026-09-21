@@ -1,0 +1,102 @@
+/*==========mobile==========*/
+.essence {
+  padding: 4rem 0;
+}
+.essence-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.essence-title {
+  margin-top: 1.125rem;
+  font-family: var(--ftitle);
+  font-size: clamp(1.9rem, 7vw, 2.6rem);
+  font-weight: var(--title-weight);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--title-color);
+}
+.essence-text {
+  max-width: 46ch;
+  margin-top: 1.25rem;
+  font-size: var(--fs-detail);
+  color: var(--text-color);
+}
+.essence-img {
+  position: relative;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(140deg, #14141b, #08080c 60%);
+  overflow: hidden;
+}
+.essence-img::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 55%;
+  background: linear-gradient(to top, rgba(11, 11, 15, 0.85), transparent);
+  pointer-events: none;
+}
+.house {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.house-lines path {
+  fill: none;
+  stroke: rgba(248, 248, 250, 0.3);
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+}
+.house-glass rect {
+  fill: url(#glass);
+}
+.house-door {
+  fill: var(--primary-color);
+  opacity: 0.75;
+}
+.house-core {
+  fill: var(--primary-color);
+}
+.essence-caption {
+  position: absolute;
+  top: 50%;
+  right: 1.375rem;
+  z-index: 2;
+  writing-mode: vertical-rl;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.26em;
+  line-height: 2.1;
+  text-transform: uppercase;
+  color: var(--title-color);
+  transform: translateY(-50%);
+}
+/*==========tablet==========*/
+@media screen and (min-width: 768px) {
+  .essence {
+    padding: 5rem 0;
+  }
+  .essence-content {
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+  }
+  .essence-copy {
+    flex: 1;
+  }
+  .essence-title {
+    max-width: 22ch;
+  }
+  .essence-img {
+    flex: 1.08;
+  }
+}
+/*==========desktop==========*/
+@media screen and (min-width: 1024px) {
+  .essence {
+    padding: 6.5rem 0;
+  }
+  .essence-content {
+    gap: 4rem;
+  }
+}

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# trocar pelo domínio final antes de publicar
+Sitemap: https://kodha.com.br/sitemap.xml
