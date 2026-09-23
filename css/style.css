@@ -1,15 +1,14 @@
 /* a versão (?v=) força o navegador a buscar o arquivo novo em vez do cache.
    ao alterar qualquer css, subir o número aqui e no link do index.html */
-@import url(global.css?v=9);
-@import url(connector.css?v=9);
-@import url(header.css?v=9);
-@import url(hero.css?v=9);
-@import url(essence.css?v=9);
-@import url(services.css?v=9);
-@import url(why.css?v=9);
-@import url(process.css?v=9);
-@import url(projects.css?v=9);
-@import url(cta.css?v=9);
-@import url(contact.css?v=9);
-@import url(trust.css?v=9);
-@import url(footer.css?v=9);
+@import url(global.css?v=11);
+@import url(connector.css?v=11);
+@import url(header.css?v=11);
+@import url(hero.css?v=11);
+@import url(process.css?v=11);
+@import url(services.css?v=11);
+@import url(why.css?v=11);
+@import url(projects.css?v=11);
+@import url(cta.css?v=11);
+@import url(contact.css?v=11);
+@import url(trust.css?v=11);
+@import url(footer.css?v=11);

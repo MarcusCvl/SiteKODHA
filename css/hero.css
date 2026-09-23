@@ -1,7 +1,8 @@
 /*==========mobile==========*/
 .hero {
   position: relative;
-  padding: calc(var(--header-height) + 2.5rem) 0 3.5rem;
+  /* sem espaço embaixo: quem afasta a próxima seção é o padding dela */
+  padding: calc(var(--header-height) + 2.5rem) 0 0;
   overflow: hidden;
 }
 .hero-content {
@@ -131,7 +132,7 @@
 /*==========tablet==========*/
 @media screen and (min-width: 768px) {
   .hero {
-    padding: calc(var(--header-height) + 4rem) 0 4.5rem;
+    padding: calc(var(--header-height) + 4rem) 0 0;
   }
   /* texto à esquerda, símbolo à direita, passos em linha embaixo */
   .hero-content {
