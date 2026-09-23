@@ -23,6 +23,28 @@
   text-transform: uppercase;
   color: var(--text-color);
 }
+/* WhatsApp, Instagram e LinkedIn */
+.footer-social {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+.footer-social-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  transition:
+    border-color 0.3s,
+    background-color 0.3s;
+}
+.footer-social-link:hover {
+  border-color: var(--primary-color);
+  background-color: var(--secondary-hover);
+}
 .footer-nav {
   display: flex;
   flex-wrap: wrap;

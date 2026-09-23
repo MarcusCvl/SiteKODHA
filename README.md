@@ -59,10 +59,11 @@ site-kodha/
 │   ├── connector.css               o fio azul do fundo
 │   └── <seção>.css                 um arquivo por seção (ver tabela acima)
 ├── js/
-│   ├── menu.js                     menu hambúrguer, overlay e header fixo
+│   ├── menu.js                     menu hambúrguer, header fixo e seção atual no menu
 │   ├── reveal.js                   animação de entrada e ano do rodapé
 │   ├── connector.js                desenha o fio azul conforme a página rola
-│   └── form.js                     validação, máscara de telefone e envio
+│   ├── form.js                     validação, máscara de telefone e envio
+│   └── projects.js                 aviso de 12s do "Ver mais projetos" (até existir a página)
 └── supabase/
     └── functions/lead-site/        Edge Function que grava os leads no kodha-os
 ```
@@ -159,11 +160,15 @@ supabase functions deploy lead-site --no-verify-jwt --project-ref uprmkigkvjneuv
 
 ## Publicação
 
+**Métricas:** o Vercel Web Analytics está ativo no projeto `kodha`. O site carrega
+`/_vercel/insights/script.js` (só fora do `localhost`); se o painel da Vercel indicar outro
+caminho para o script, trocar no fim do `index.html`.
+
 Qualquer hospedagem estática serve (Vercel, Netlify, GitHub Pages ou FTP em `public_html`).
 Sobe a pasta inteira.
 
-O site está na **Vercel** em `https://kodha.vercel.app`. Enquanto não houver domínio próprio,
-trocar o domínio de exemplo `https://kodha.com.br/` em:
+O site está na **Vercel** em `https://kodha.vercel.app`. Quando houver domínio próprio,
+trocar `https://kodha.vercel.app/` em:
 
 - `index.html`: `canonical`, `og:url`, `og:image`, `twitter:image` e o bloco JSON-LD
 - `robots.txt`: linha `Sitemap:`
@@ -173,14 +178,15 @@ trocar o domínio de exemplo `https://kodha.com.br/` em:
 
 ## Pendências
 
-- [ ] `js/form.js`: número real de `WHATSAPP`
+- [ ] Número real do WhatsApp em **dois lugares**: `WHATSAPP` em `js/form.js` e o link
+      `wa.me` do rodapé no `index.html`
 - [ ] Domínio próprio: acrescentar em `ORIGENS_PERMITIDAS` da função `lead-site` (e publicar
       de novo) e trocar em `index.html`, `robots.txt` e `sitemap.xml`
 - [ ] Projetos, **MC Personal Consultoria**: capa `assets/img/thumb-mcpc.webp`
 - [ ] Projetos, **Raquel** (fotografia): página em criação. Quando ficar pronta, trocar a
       capa provisória pela thumb, pôr o link no título e definir o tipo de projeto
-- [ ] Projetos, "Ver mais projetos": hoje aponta para o contato. Apontar para o
-      portfólio quando existir
+- [ ] Projetos, "Ver mais projetos": hoje só mostra um aviso. Quando existir a página de
+      projetos, trocar o `<button>` por um link e apagar `js/projects.js`
 
 ---
 

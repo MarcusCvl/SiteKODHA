@@ -9,6 +9,46 @@
   gap: 1rem;
   margin-bottom: 2.25rem;
 }
+.projects-mais {
+  max-width: 22rem;
+}
+/* aviso do "Ver mais projetos": surge ao clicar e some sozinho depois de 12s (js/projects.js).
+   a altura anima de 0fr a 1fr no grid, então os cards abaixo descem com suavidade, sem salto */
+.projects-aviso {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.7s cubic-bezier(0.16, 0.84, 0.28, 1) 0.15s;
+}
+.projects-aviso.mostrando {
+  grid-template-rows: 1fr;
+  transition-delay: 0s;
+}
+.projects-aviso-conteudo {
+  min-height: 0;
+  overflow: hidden;
+}
+.projects-aviso-texto {
+  margin-top: 0.75rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--border-color);
+  border-left: 2px solid var(--primary-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--secondary-background);
+  font-size: var(--fs-detail);
+  line-height: 1.55;
+  color: var(--text-color);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+/* abrindo: o texto entra depois que a caixa começou a abrir; fechando: some antes */
+.projects-aviso.mostrando .projects-aviso-texto {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.25s;
+}
 .projects-title {
   margin-top: 0.75rem;
   font-family: var(--ftitle);

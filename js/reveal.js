@@ -1,18 +1,23 @@
 const elementosReveal = document.querySelectorAll(".reveal");
 
-const observer = new IntersectionObserver(
-  (entradas) => {
-    entradas.forEach((entrada) => {
-      if (entrada.isIntersecting) {
-        entrada.target.classList.add("visivel");
-        observer.unobserve(entrada.target);
-      }
-    });
-  },
-  { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
-);
+// navegador sem IntersectionObserver: mostra tudo de uma vez em vez de deixar escondido
+if (!("IntersectionObserver" in window)) {
+  elementosReveal.forEach((elemento) => elemento.classList.add("visivel"));
+} else {
+  const observer = new IntersectionObserver(
+    (entradas) => {
+      entradas.forEach((entrada) => {
+        if (entrada.isIntersecting) {
+          entrada.target.classList.add("visivel");
+          observer.unobserve(entrada.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+  );
 
-elementosReveal.forEach((elemento) => observer.observe(elemento));
+  elementosReveal.forEach((elemento) => observer.observe(elemento));
+}
 
 // o ano do rodapé vem do relógio, não de um número fixo no html
 const anoAtual = document.querySelector(".footer-year");

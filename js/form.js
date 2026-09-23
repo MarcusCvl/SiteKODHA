@@ -24,6 +24,15 @@ function pintarSelect() {
 select.addEventListener("change", pintarSelect);
 pintarSelect();
 
+// quem chega por um card de Serviços já encontra o serviço escolhido
+document.querySelectorAll("[data-servico]").forEach((link) => {
+  link.addEventListener("click", () => {
+    select.value = link.dataset.servico;
+    select.closest(".form-field").classList.remove("invalido");
+    pintarSelect();
+  });
+});
+
 // máscara de telefone no padrão brasileiro
 form.phone.addEventListener("input", () => {
   const digitos = form.phone.value.replace(/\D/g, "").slice(0, 11);
