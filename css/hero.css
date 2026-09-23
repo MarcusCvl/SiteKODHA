@@ -33,7 +33,7 @@
 .hero-title span {
   color: var(--primary-color);
 }
-/* símbolo com a haste branca (a do header continua azul) */
+/* a logo como peça central do hero */
 .hero-simbolo {
   grid-area: simbolo;
   position: relative;
@@ -41,7 +41,6 @@
   justify-content: center;
   align-items: center;
   padding: 4.5rem 0;
-  --cor-haste: var(--title-color);
 }
 .hero-simbolo::before {
   content: "";
@@ -53,11 +52,10 @@
   background: radial-gradient(circle, rgba(63, 107, 255, 0.22), transparent 62%);
   pointer-events: none;
 }
-.hero-simbolo svg {
+.hero-simbolo img {
   position: relative;
-  width: 5.5rem;
+  width: auto;
   height: 7.8rem;
-  overflow: visible;
 }
 .hero-text {
   grid-area: texto;
@@ -152,8 +150,7 @@
   .hero-simbolo::before {
     width: 30rem;
   }
-  .hero-simbolo svg {
-    width: 8rem;
+  .hero-simbolo img {
     height: 11.35rem;
   }
   .hero-text {
@@ -227,8 +224,7 @@
 }
 /*==========desktop==========*/
 @media screen and (min-width: 1180px) {
-  .hero-simbolo svg {
-    width: 10rem;
+  .hero-simbolo img {
     height: 14.2rem;
   }
   .hero-simbolo::before {

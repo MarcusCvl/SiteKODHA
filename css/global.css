@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jura:wght@500;600&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 :root {
   /* ========================================CORES======================================== */
@@ -33,6 +33,7 @@
 
   --ftitle: "Montserrat", sans-serif;
   --ftexts: "Montserrat", sans-serif;
+  --flogo: "Jura", sans-serif;
 
   /*========================================PESO======================================== */
 
@@ -120,22 +121,6 @@ svg {
 }
 /*========================================UTILITÁRIOS======================================== */
 
-.sprite {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
-.simbolo-azul {
-  fill: var(--primary-color);
-}
-/* a haste do K pode mudar de cor por uso: basta definir --cor-haste no pai */
-.simbolo-haste {
-  fill: var(--cor-haste, var(--primary-color));
-}
-.simbolo-branco {
-  fill: var(--title-color);
-}
 .sr-only {
   position: absolute;
   width: 1px;

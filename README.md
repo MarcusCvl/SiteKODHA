@@ -52,7 +52,7 @@ site-kodha/
 │   ├── favicon.svg
 │   ├── logo-kodha-horizontal.svg   usado no JSON-LD
 │   ├── og-image.png                imagem de compartilhamento (1200×630)
-│   └── img/                        fotos e capas dos projetos
+│   └── img/                        logo, fotos e capas dos projetos
 ├── css/
 │   ├── style.css                   só os @import, na ordem da página
 │   ├── global.css                  variáveis, reset, utilitários, botões e reveal
@@ -186,11 +186,11 @@ Aplicada a partir do **KODHA — Manual da Marca v1.0**.
 
 - **Cores:** carvão `#0B0B0F` como base, branco `#F8F8FA` no conteúdo, cinza `#A1A1B0`
   no apoio e Azul Quasar `#3F6BFF` só como energia (CTAs, foco, ícones e destaques).
-- **Tipografia:** Montserrat. Títulos em SemiBold/Bold, texto em Regular/Medium e
-  tracking aberto em rótulos e navegação.
-- **Símbolo:** vetorizado a partir da geometria do manual e guardado num `<symbol>`
-  no topo do HTML, reaproveitado com `<use>` no header, no hero e no rodapé. A cor da
-  haste muda por uso com a variável `--cor-haste`: azul no header, branca no hero.
+- **Tipografia:** Montserrat em todo o site (títulos em SemiBold/Bold, texto em
+  Regular/Medium, tracking aberto em rótulos e navegação); Jura só no nome da marca.
+- **Logo:** a versão oficial com degradê, em WebP com fundo transparente:
+  `simbolo-kodha.webp` (115×128) no header e no rodapé, e `simbolo-kodha-grande.webp`
+  (461×512) no hero. O nome **KODHA** é escrito em **Jura** (variável `--flogo`).
 - **Movimento:** convergir → conectar → avançar. Entradas de ~760 ms, hover de ~300 ms,
   tudo desligado em `prefers-reduced-motion`.
 - **Fio de conexão:** o traço azul que percorre a página é a ideia de conexão do

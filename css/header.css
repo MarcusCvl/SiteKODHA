@@ -36,11 +36,17 @@
   font-weight: var(--title-weight);
   letter-spacing: 0.14em;
 }
-.logo-simbolo {
-  width: 1.1875rem;
-  height: 1.6875rem;
+/* a marca usa a logo de verdade (imagem) e o nome em Jura, no header e no rodapé */
+.logo-img {
+  width: auto;
+  height: 1.875rem;
   flex: none;
-  overflow: visible;
+}
+.logo-nome {
+  font-family: var(--flogo);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
 }
 .navigation {
   position: relative;
