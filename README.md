@@ -49,9 +49,11 @@ site-kodha/
 ├── robots.txt
 ├── sitemap.xml
 ├── assets/
-│   ├── favicon.svg
-│   ├── logo-kodha-horizontal.svg   usado no JSON-LD
-│   ├── og-image.png                imagem de compartilhamento (1200×630)
+│   ├── favicon-32.png              ícone da aba do navegador
+│   ├── icon-192.png                ícone para Android e atalhos
+│   ├── apple-touch-icon.png        ícone da tela inicial do iPhone (180×180)
+│   ├── og-image.jpg                imagem de compartilhamento (1200×630, até ~300 KB)
+│   ├── logo-kodha.png              logo com o nome, usada no JSON-LD
 │   └── img/                        logo, fotos e capas dos projetos
 ├── css/
 │   ├── style.css                   só os @import, na ordem da página
@@ -59,12 +61,13 @@ site-kodha/
 │   ├── connector.css               o fio azul do fundo
 │   └── <seção>.css                 um arquivo por seção (ver tabela acima)
 ├── js/
-│   ├── menu.js                     menu hambúrguer, overlay e header fixo
+│   ├── menu.js                     menu hambúrguer, header fixo e seção atual no menu
 │   ├── reveal.js                   animação de entrada e ano do rodapé
 │   ├── connector.js                desenha o fio azul conforme a página rola
-│   └── form.js                     validação, máscara de telefone e envio
-└── apps-script/
-    └── Codigo.gs                   recebe os leads na planilha do Google
+│   ├── form.js                     validação, máscara de telefone e envio
+│   └── projects.js                 aviso de 12s do "Ver mais projetos" (até existir a página)
+└── supabase/
+    └── functions/lead-site/        Edge Function que grava os leads no kodha-os
 ```
 
 ---
@@ -125,42 +128,49 @@ no título e se estende pelo card inteiro via `::after`.
 
 ## Formulário de contato
 
-O formulário envia os dados para um app da web do Google Apps Script, que grava cada
-lead numa linha da planilha.
+Os leads do site caem direto na tabela `leads` do **kodha-os** (Supabase), o sistema interno
+da KODHA, com `origem = "Site"` e `status = "novo"`.
 
-1. Criar (ou abrir) a planilha de leads no Google Sheets.
-2. **Extensões → Apps Script** e colar o conteúdo de `apps-script/Codigo.gs`.
-3. Script vinculado à própria planilha: deixar `ID_PLANILHA` vazio. Planilha separada:
-   colar o ID dela (o trecho entre `/d/` e `/edit` na URL).
-4. **Implantar → Nova implantação → App da Web**
-   - Executar como: **Eu**
-   - Quem pode acessar: **Qualquer pessoa**
-5. Colar a URL gerada no topo de `js/form.js`:
+```
+site (js/form.js) ──POST──▶ Edge Function lead-site ──▶ public.leads
+                    ◀── { ok: true } / { ok: false }
+```
 
-   ```js
-   const SCRIPT_URL = "https://script.google.com/macros/s/AKfy.../exec";
-   const WHATSAPP = "5532999999999";
-   ```
+- O site **não guarda chave nenhuma**. Quem grava é a Edge Function, com a chave secreta
+  que só existe no Supabase.
+- A função nunca devolve dados do banco, só `ok`. A tabela tem RLS: só sócios logados
+  leem os leads.
+- A função valida os campos, descarta bots (honeypot `website`) e aceita chamadas só dos
+  domínios em `ORIGENS_PERMITIDAS`.
+- Cada envio leva um `envio_id`, gravado em `origem_chave` (única no banco): reenviar o mesmo
+  formulário não duplica o lead.
+- O serviço escolhido no site é ligado ao `servico_id` do kodha-os pelo mapa `SERVICOS`
+  da função (ex.: "Identidade visual" → "Branding").
+- Se o envio falhar, o formulário oferece um link **Continuar pelo WhatsApp** com a mensagem
+  pronta (número em `WHATSAPP`, no topo de `js/form.js`).
 
-A aba `Leads` e o cabeçalho são criados no primeiro envio, com as colunas:
-Data/Hora · Nome · Negócio · Telefone · E-mail · Serviço · Mensagem · Origem · Página.
+**Mudou alguma coisa na função?** O código fica em `supabase/functions/lead-site/index.ts`.
+Depois de editar, publicar de novo (Supabase CLI):
 
-**Sem `SCRIPT_URL`**, o formulário monta a mensagem e abre o WhatsApp de `WHATSAPP`.
-Assim o site funciona antes de a planilha estar pronta.
+```bash
+supabase functions deploy lead-site --no-verify-jwt --project-ref uprmkigkvjneuvuvwzyr
+```
 
-> - O envio usa `Content-Type: text/plain` de propósito, porque evita o preflight de CORS
->   do Apps Script. Não trocar para `application/json`.
-> - O campo `website` é um honeypot: fica fora da tela. Se vier preenchido, é bot, e o
->   formulário finge sucesso sem enviar nada.
+> `--no-verify-jwt` é intencional: o formulário é público e a função faz a própria validação.
 
 ---
 
 ## Publicação
 
+**Métricas:** o Vercel Web Analytics está ativo no projeto `kodha`. O site carrega
+`/_vercel/insights/script.js` (só fora do `localhost`); se o painel da Vercel indicar outro
+caminho para o script, trocar no fim do `index.html`.
+
 Qualquer hospedagem estática serve (Vercel, Netlify, GitHub Pages ou FTP em `public_html`).
 Sobe a pasta inteira.
 
-Antes de publicar, trocar o domínio de exemplo `https://kodha.com.br/` em:
+O site está na **Vercel** em `https://kodha.vercel.app`. Quando houver domínio próprio,
+trocar `https://kodha.vercel.app/` em:
 
 - `index.html`: `canonical`, `og:url`, `og:image`, `twitter:image` e o bloco JSON-LD
 - `robots.txt`: linha `Sitemap:`
@@ -170,13 +180,16 @@ Antes de publicar, trocar o domínio de exemplo `https://kodha.com.br/` em:
 
 ## Pendências
 
-- [ ] `js/form.js`: preencher `SCRIPT_URL` e o número real de `WHATSAPP`
-- [ ] Domínio real em `index.html`, `robots.txt` e `sitemap.xml`
+- [ ] WhatsApp: hoje usa o número do Elisson, provisório. Quando a KODHA tiver o próprio,
+      trocar em **dois lugares**: `WHATSAPP` em `js/form.js` e o link `wa.me` do rodapé no
+      `index.html` (que já abre com "Olá, vim pelo site da KODHA!")
+- [ ] Domínio próprio: acrescentar em `ORIGENS_PERMITIDAS` da função `lead-site` (e publicar
+      de novo) e trocar em `index.html`, `robots.txt` e `sitemap.xml`
 - [ ] Projetos, **MC Personal Consultoria**: capa `assets/img/thumb-mcpc.webp`
 - [ ] Projetos, **Raquel** (fotografia): página em criação. Quando ficar pronta, trocar a
       capa provisória pela thumb, pôr o link no título e definir o tipo de projeto
-- [ ] Projetos, "Ver mais projetos": hoje aponta para o contato. Apontar para o
-      portfólio quando existir
+- [ ] Projetos, "Ver mais projetos": hoje só mostra um aviso. Quando existir a página de
+      projetos, trocar o `<button>` por um link e apagar `js/projects.js`
 
 ---
 
