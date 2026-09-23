@@ -42,24 +42,15 @@
   height: 2px;
   background-color: var(--primary-color);
 }
-/* moldura da foto: enquanto não tem foto, mostra só a legenda */
+/* moldura da foto: o fundo escuro aparece só enquanto a imagem carrega */
 .about-person-photo {
   position: relative;
-  display: flex;
-  align-items: center;
   aspect-ratio: 2.45;
-  padding-inline: 1.25rem;
   border-radius: 2px;
   background:
     radial-gradient(60% 90% at 62% 40%, rgba(248, 248, 250, 0.1), transparent 70%),
     linear-gradient(135deg, #1c1c22, #121217);
   overflow: hidden;
-}
-.about-person-photo span {
-  font-size: var(--fs-sm);
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--text-color);
 }
 .about-person-photo img {
   position: absolute;
