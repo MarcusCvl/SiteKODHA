@@ -110,7 +110,7 @@ svg {
 .projects-cards,
 .cta-content,
 .contact-content,
-.trust-content,
+.about-content,
 .footer-content,
 .footer-base {
   width: 100%;
@@ -292,7 +292,7 @@ svg {
   .projects-cards,
   .cta-content,
   .contact-content,
-  .trust-content,
+  .about-content,
   .footer-content,
   .footer-base {
     padding-inline: 2.5rem;
