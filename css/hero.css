@@ -1,286 +1,240 @@
 /*==========mobile==========*/
 .hero {
   position: relative;
-  display: flex;
-  align-items: center;
-  min-height: 92vh;
-  min-height: min(92svh, 880px);
-  padding: calc(var(--header-height) + 2rem) 0 5rem;
+  padding: calc(var(--header-height) + 2.5rem) 0 3.5rem;
   overflow: hidden;
 }
-.hero::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 4%;
-  translate: 0 -50%;
-  z-index: 0;
-  width: min(900px, 74vw);
-  aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(63, 107, 255, 0.2), transparent 60%);
-  pointer-events: none;
-}
-/* o celular é atmosfera, não conteúdo: fica atrás do texto */
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.24;
-  pointer-events: none;
-}
-.hero-mockup {
-  position: relative;
-  transform: translate(14%, 6%);
-}
-.hero-note {
-  display: none;
-}
 .hero-content {
-  position: relative;
-  z-index: 2;
+  display: grid;
+  /* minmax(0, 1fr): conteúdo que não quebra nunca alarga a coluna além da tela */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "copy"
+    "simbolo"
+    "texto"
+    "pilares";
+}
+.hero-copy {
+  grid-area: copy;
+}
+.hero-copy .section-title {
+  font-size: 0.6875rem;
+  letter-spacing: 0.45em;
+  line-height: 2;
 }
 .hero-title {
-  font-size: clamp(2.75rem, 11vw, 3.5rem);
-  letter-spacing: -0.025em;
+  margin-top: 1.25rem;
+  font-size: clamp(2.75rem, 12.5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+.hero-title span {
+  color: var(--primary-color);
+}
+/* símbolo com a haste branca (a do header continua azul) */
+.hero-simbolo {
+  grid-area: simbolo;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4.5rem 0;
+  --cor-haste: var(--title-color);
+}
+.hero-simbolo::before {
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  translate: -50% -50%;
+  width: 22rem;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(63, 107, 255, 0.22), transparent 62%);
+  pointer-events: none;
+}
+.hero-simbolo svg {
+  position: relative;
+  width: 5.5rem;
+  height: 7.8rem;
+  overflow: visible;
+}
+.hero-text {
+  grid-area: texto;
 }
 .hero-subtitle {
-  max-width: 28ch;
-  margin-top: 1rem;
-  font-size: var(--fs-base);
-  color: var(--text-color);
-}
-.hero-benefits {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.875rem;
-  margin-top: 2rem;
-}
-.hero-benefits li {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-  font-size: var(--fs-detail);
+  max-width: 32ch;
+  font-size: 1.0625rem;
+  line-height: 1.55;
   color: var(--text-color);
 }
 .hero-cta {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
   margin-top: 1.75rem;
 }
 .hero-cta .primary-button {
   width: 100%;
+  padding-inline: 1.25rem;
+  white-space: nowrap;
+  /* a fonte acompanha a largura da tela para o texto caber sempre em uma linha */
+  font-size: clamp(0.75rem, (100vw - 6.5rem) / 17, var(--fs-base));
+  font-weight: var(--menu-text-weight);
 }
-.hero-footer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 1.25rem;
-  z-index: 2;
+.hero-cta .primary-button:hover .arrow {
+  transform: translate(3px, -3px);
 }
-.hero-footer-content {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border-color);
+.hero-link {
+  padding-bottom: 0.5rem;
+  white-space: nowrap;
+  border-bottom: 2px solid var(--primary-color);
+  font-size: var(--fs-base);
+  transition: color 0.3s;
 }
-.hero-manifesto {
-  display: none;
+.hero-link:hover {
+  color: var(--primary-color);
 }
-/*==========celular do fundo==========*/
-.mockup {
-  width: auto;
-  height: min(58svh, 520px);
-  aspect-ratio: 1 / 1.92;
-  padding: 0.5625rem;
-  border-radius: 2.375rem;
-  background: linear-gradient(160deg, #2a2a33, #0d0d12 46%, #1c1c23);
-  box-shadow:
-    0 60px 120px -48px rgba(0, 0, 0, 0.95),
-    0 0 0 1px rgba(248, 248, 250, 0.07);
-  transform: rotate(3deg);
-  -webkit-mask-image: radial-gradient(120% 78% at 50% 44%, #000 38%, transparent 84%);
-  mask-image: radial-gradient(120% 78% at 50% 44%, #000 38%, transparent 84%);
-}
-.mockup-screen {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  height: 100%;
-  padding: 1rem 0.625rem 0.75rem;
-  border: 1px solid rgba(248, 248, 250, 0.06);
-  border-radius: 1.875rem;
-  background-color: #0a0a0e;
-  overflow: hidden;
-}
-.mockup-top {
+/* no celular os três passos viram um detalhe: só as palavras, fechando o hero com a linha */
+.hero-pilares {
+  grid-area: pilares;
   display: flex;
   justify-content: center;
+  /* tudo aqui é em em: a linha encolhe inteira em telas estreitas e nunca quebra */
+  font-size: clamp(0.5rem, (100vw - 3.5rem) / 29, var(--fs-sm));
+  margin-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border-color);
 }
-.mockup-top span {
-  width: 42%;
-  height: 5px;
-  border-radius: 99px;
-  background-color: #1b1b22;
-}
-.mockup-profile {
+.hero-pilares li {
   display: flex;
   align-items: center;
-  gap: 0.5625rem;
-  padding: 0 2px;
 }
-.mockup-avatar {
-  width: 1.625rem;
-  height: 1.625rem;
-  flex: none;
+.hero-pilares li + li::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  margin-inline: 1.4em;
   border-radius: 50%;
-  background: linear-gradient(145deg, #33333d, #17171d);
+  background-color: var(--primary-color);
 }
-.mockup-lines {
-  display: grid;
-  flex: 1;
-  gap: 5px;
+.hero-pilares-numero,
+.hero-pilares-texto {
+  display: none;
 }
-.mockup-lines b {
-  display: block;
-  height: 5px;
-  border-radius: 99px;
-  background-color: #1e1e25;
-}
-.mockup-lines b:last-child {
-  width: 52%;
-  background-color: #17171d;
-}
-.mockup-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-}
-.mockup-grid i {
-  display: block;
-  aspect-ratio: 1;
-  border-radius: 2px;
-  background: linear-gradient(145deg, #2c2c34, #15151a 55%, #22222a);
-  filter: grayscale(1);
-}
-.mockup-grid i:nth-child(2n) {
-  background: linear-gradient(145deg, #232329, #101016 60%, #2a2a32);
-}
-.mockup-grid i:nth-child(3n) {
-  background: linear-gradient(200deg, #33333c, #17171d);
-}
-.mockup-bar {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: auto;
-  padding-top: 6px;
-}
-.mockup-bar b {
-  display: block;
-  width: 13px;
-  height: 13px;
-  border: 1.4px solid #2e2e38;
-  border-radius: 3px;
-}
-.mockup-bar b:first-child {
-  border-color: var(--primary-color);
+.hero-pilares strong {
+  font-weight: var(--menu-text-weight);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-color);
 }
 /*==========tablet==========*/
 @media screen and (min-width: 768px) {
   .hero {
-    min-height: 100vh;
-    min-height: min(100svh, 1000px);
-    padding: calc(var(--header-height) + 1.25rem) 0 7rem;
+    padding: calc(var(--header-height) + 4rem) 0 4.5rem;
   }
-  .hero-bg {
-    justify-content: flex-end;
-    padding-right: 2.5rem;
-    opacity: 1;
-  }
-  .hero-mockup {
-    transform: none;
-  }
-  .hero-note {
-    display: block;
-    position: absolute;
-    top: -2%;
-    left: -36%;
-    z-index: 3;
-    font-size: 0.95rem;
-    font-style: italic;
-    font-weight: var(--menu-text-weight);
-    line-height: 1.35;
-    color: var(--title-color);
-    text-shadow: 0 2px 18px rgba(11, 11, 15, 0.9);
-    transform: rotate(-7deg);
-  }
-  .hero-copy {
-    max-width: 66%;
+  /* texto à esquerda, símbolo à direita, passos em linha embaixo */
+  .hero-content {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    grid-template-areas:
+      "copy    simbolo"
+      "texto   simbolo"
+      "pilares pilares";
+    column-gap: 2.5rem;
   }
   .hero-title {
-    font-size: clamp(3rem, 6.2vw, 5rem);
+    font-size: clamp(3.5rem, 7.4vw, 5.5rem);
   }
-  .hero-subtitle {
-    max-width: 34ch;
-    font-size: clamp(1rem, 1.35vw, 1.2rem);
+  .hero-simbolo {
+    padding: 0;
   }
-  .hero-benefits {
+  .hero-simbolo::before {
+    width: 30rem;
+  }
+  .hero-simbolo svg {
+    width: 8rem;
+    height: 11.35rem;
+  }
+  .hero-text {
+    margin-top: 2rem;
+  }
+  .hero-cta {
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 0;
-    margin-top: 2.5rem;
-  }
-  .hero-benefits li {
-    padding-right: 1.5rem;
-    margin-right: 1.5rem;
-    border-right: 1px solid var(--border-color);
-  }
-  .hero-benefits li:last-child {
-    padding-right: 0;
-    margin-right: 0;
-    border-right: 0;
+    gap: 1.5rem 2rem;
   }
   .hero-cta .primary-button {
     width: auto;
+    padding-inline: 2rem;
   }
-  .mockup {
-    height: min(66svh, 600px);
-    padding: 0.75rem;
-    border-radius: 3rem;
-    transform: rotate(3.5deg);
-    -webkit-mask-image: linear-gradient(to left, #000 58%, transparent 99%);
-    mask-image: linear-gradient(to left, #000 58%, transparent 99%);
+  /* a partir do tablet: número, traço e frase, em três colunas */
+  .hero-pilares {
+    display: grid;
+    font-size: var(--fs-base);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 0;
   }
-  .mockup-screen {
-    border-radius: 2.375rem;
+  .hero-pilares li {
+    flex-direction: column;
+    align-items: baseline;
+    gap: 1rem;
   }
-  .hero-footer {
-    bottom: 2.25rem;
+  .hero-pilares li + li::before {
+    content: none;
   }
-  .hero-manifesto {
+  .hero-pilares-numero {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex: none;
+    font-size: 1.125rem;
+    font-weight: var(--title-weight);
+    font-variant-numeric: tabular-nums;
+    color: var(--primary-color);
+  }
+  .hero-pilares-numero::after {
+    content: "";
+    width: 2rem;
+    height: 1px;
+    background-color: var(--text-color);
+    opacity: 0.5;
+  }
+  .hero-pilares p {
+    font-size: var(--fs-detail);
+    line-height: 1.5;
+  }
+  .hero-pilares-texto {
+    display: inline;
+  }
+  .hero-pilares strong {
     display: block;
-    max-width: 340px;
-    font-size: var(--fs-sm);
-    font-weight: var(--menu-text-weight);
-    letter-spacing: 0.2em;
-    line-height: 2.1;
-    text-align: right;
-    text-transform: uppercase;
-    color: var(--text-color);
+    margin-bottom: 0.25rem;
+    font-size: 1.0625rem;
+    font-weight: var(--title-weight);
+    letter-spacing: normal;
+    text-transform: none;
+    color: var(--title-color);
+  }
+  .hero-pilares strong::after {
+    content: ".";
   }
 }
 /*==========desktop==========*/
 @media screen and (min-width: 1180px) {
-  .hero-copy {
-    max-width: 58%;
+  .hero-simbolo svg {
+    width: 10rem;
+    height: 14.2rem;
   }
-  .hero-bg {
-    padding-right: 5rem;
+  .hero-simbolo::before {
+    width: 38rem;
+  }
+  .hero-pilares li {
+    flex-direction: row;
+    gap: 1.25rem;
   }
 }

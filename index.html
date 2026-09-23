@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css?v=6" />
+    <link rel="stylesheet" href="css/style.css?v=9" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="assets/favicon.svg" />
     <title>KODHA | Sites e identidade visual para profissionais independentes</title>
@@ -123,7 +123,7 @@
     <!-- símbolo da marca, reaproveitado com <use> no header e no rodapé -->
     <svg class="sprite" aria-hidden="true" focusable="false">
       <symbol id="simbolo" viewBox="0 0 220.54 312.62">
-        <path class="simbolo-azul" d="M0 312.613 13.949 67.094h41.852L41.852 312.613Z" />
+        <path class="simbolo-azul simbolo-haste" d="M0 312.613 13.949 67.094h41.852L41.852 312.613Z" />
         <path class="simbolo-azul" d="M115.121 147.57 84.34 96.281 180.621 0l30.77 51.301Z" />
         <path class="simbolo-branco" d="M72.969 191.703 124.262 160.922 220.539 257.191 169.238 288.973Z" />
       </symbol>
@@ -161,65 +161,40 @@
     <main id="conteudo">
       <!--==========hero==========-->
       <section class="hero" id="inicio">
-        <div class="hero-bg" aria-hidden="true">
-          <div class="hero-mockup">
-            <p class="hero-note">Dependente<br />do algoritmo?</p>
-            <div class="mockup">
-              <div class="mockup-screen">
-                <div class="mockup-top"><span></span></div>
-                <div class="mockup-profile">
-                  <span class="mockup-avatar"></span>
-                  <span class="mockup-lines"><b></b><b></b></span>
-                </div>
-                <div class="mockup-grid">
-                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-                </div>
-                <div class="mockup-bar"><b></b><b></b><b></b><b></b><b></b></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="hero-content">
           <div class="hero-copy reveal">
-            <h1 class="hero-title">Sua marca além<br />do Instagram.</h1>
-            <p class="hero-subtitle">Presença digital que gera negócio.</p>
+            <p class="section-title">Estratégia, design e tecnologia</p>
+            <h1 class="hero-title">Sua marca além do <span>Instagram.</span></h1>
+          </div>
 
-            <ul class="hero-benefits">
-              <li>
-                <span class="icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M4 20V13M10 20V8M16 20V4" /></svg>
-                </span>
-                Mais autonomia
-              </li>
-              <li>
-                <span class="icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24">
-                    <circle cx="12" cy="8" r="3.4" />
-                    <path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6" />
-                  </svg>
-                </span>
-                Mais clientes
-              </li>
-              <li>
-                <span class="icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M13 3 5.5 13.5H11L10.5 21 18.5 10.5H13Z" /></svg>
-                </span>
-                Mais resultado
-              </li>
-            </ul>
+          <!-- o símbolo da marca como peça central, com o brilho azul atrás -->
+          <div class="hero-simbolo reveal" aria-hidden="true">
+            <svg><use href="#simbolo"></use></svg>
+          </div>
+
+          <div class="hero-text reveal">
+            <p class="hero-subtitle">Branding e sites para transformar atenção em confiança — e confiança em negócio.</p>
 
             <div class="hero-cta">
-              <a class="primary-button" href="#contato">Vamos conversar <span class="arrow" aria-hidden="true">→</span></a>
+              <a class="primary-button" href="#contato">Vamos construir sua presença <span class="arrow" aria-hidden="true">↗</span></a>
+              <a class="hero-link" href="#essencia">Conheça a KODHA</a>
             </div>
           </div>
-        </div>
 
-        <div class="hero-footer">
-          <div class="hero-footer-content">
-            <p class="section-title">Estratégia <span>·</span> Design <span>·</span> Resultado</p>
-            <p class="hero-manifesto">Algoritmos limitam ideias. Marcas fortes constroem liberdade.</p>
-          </div>
+          <ol class="hero-pilares reveal">
+            <li>
+              <span class="hero-pilares-numero">01</span>
+              <p><strong>Comunicar</strong> <span class="hero-pilares-texto">Clareza para sua marca.</span></p>
+            </li>
+            <li>
+              <span class="hero-pilares-numero">02</span>
+              <p><strong>Conectar</strong> <span class="hero-pilares-texto">Confiança em cada contato.</span></p>
+            </li>
+            <li>
+              <span class="hero-pilares-numero">03</span>
+              <p><strong>Vender</strong> <span class="hero-pilares-texto">Presença que gera oportunidades.</span></p>
+            </li>
+          </ol>
         </div>
       </section>
 
@@ -613,9 +588,9 @@
       </div>
     </footer>
 
-    <script src="js/menu.js?v=6" defer></script>
-    <script src="js/reveal.js?v=6" defer></script>
-    <script src="js/connector.js?v=6" defer></script>
-    <script src="js/form.js?v=6" defer></script>
+    <script src="js/menu.js?v=9" defer></script>
+    <script src="js/reveal.js?v=9" defer></script>
+    <script src="js/connector.js?v=9" defer></script>
+    <script src="js/form.js?v=9" defer></script>
   </body>
 </html>

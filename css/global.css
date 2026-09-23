@@ -101,7 +101,6 @@ svg {
 /* as seções respiram sempre com a mesma medida */
 .header-content,
 .hero-content,
-.hero-footer-content,
 .essence-content,
 .services-header,
 .services-cards,
@@ -131,6 +130,10 @@ svg {
 }
 .simbolo-azul {
   fill: var(--primary-color);
+}
+/* a haste do K pode mudar de cor por uso: basta definir --cor-haste no pai */
+.simbolo-haste {
+  fill: var(--cor-haste, var(--primary-color));
 }
 .simbolo-branco {
   fill: var(--title-color);
@@ -282,7 +285,6 @@ svg {
 @media screen and (min-width: 768px) {
   .header-content,
   .hero-content,
-  .hero-footer-content,
   .essence-content,
   .services-header,
   .services-cards,
