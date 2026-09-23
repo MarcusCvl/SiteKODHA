@@ -1,13 +1,20 @@
 const form = document.querySelector(".form");
 
-// cole aqui a URL do app da web publicado no Apps Script (apps-script/Codigo.gs).
-// enquanto estiver vazia, o formulário cai direto no WhatsApp.
-const SCRIPT_URL = "";
+// Edge Function "lead-site" do Supabase (kodha-os): grava o lead e só responde ok ou erro.
+// O site não guarda chave nenhuma; quem escreve no banco é a função.
+const ENDPOINT = "https://uprmkigkvjneuvuvwzyr.supabase.co/functions/v1/lead-site";
+
+// WhatsApp de reserva, oferecido quando o envio falha (só dígitos, com DDI).
+// placeholder: trocar pelo número real da KODHA
 const WHATSAPP = "5532999999999";
 
 const status = form.querySelector(".form-status");
 const botao = form.querySelector(".form-button");
 const select = form.querySelector("select");
+const campos = form.querySelectorAll("input:not(.form-honeypot), select, textarea");
+
+// um id por envio: se a mesma mensagem for enviada duas vezes, o banco não duplica o lead
+let envioId = null;
 
 // o select nasce com a cor de placeholder e só clareia quando tem escolha
 function pintarSelect() {
@@ -46,34 +53,75 @@ function campoValido(campo) {
   return campo.value.trim().length > 1;
 }
 
+function marcarCampo(campo) {
+  const valido = campoValido(campo);
+  const container = campo.closest(".form-field");
+  if (container) container.classList.toggle("invalido", !valido);
+  return valido;
+}
+
+// o destaque de erro some assim que a pessoa corrige o campo, sem precisar reenviar
+campos.forEach((campo) => {
+  const evento = campo.tagName === "SELECT" ? "change" : "input";
+  campo.addEventListener(evento, () => {
+    if (campo.closest(".form-field.invalido")) marcarCampo(campo);
+  });
+});
+
 function linkWhatsapp(dados) {
   const texto =
-    `Olá, KODHA! Sou ${dados.name}.` +
-    (dados.company ? ` Meu negócio é ${dados.company}.` : "") +
-    ` Tenho interesse em: ${dados.selection}.` +
-    (dados.message ? ` ${dados.message}` : "");
+    `Olá, KODHA! Sou ${dados.nome}.` +
+    (dados.empresa ? ` Meu negócio é ${dados.empresa}.` : "") +
+    ` Tenho interesse em: ${dados.servico}.` +
+    (dados.mensagem ? ` ${dados.mensagem}` : "");
 
   return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`;
 }
 
+// quando o envio falha, o WhatsApp vira um link clicável: abrir sozinho seria bloqueado
+// pelo navegador, porque já não é mais o clique da pessoa
+function oferecerWhatsapp(dados) {
+  avisar("Não conseguimos enviar agora. ", "erro");
+
+  const link = document.createElement("a");
+  link.href = linkWhatsapp(dados);
+  link.target = "_blank";
+  link.rel = "noopener";
+  link.textContent = "Continuar pelo WhatsApp";
+  status.append(link);
+}
+
+async function enviar(dados) {
+  const controle = new AbortController();
+  const limite = setTimeout(() => controle.abort(), 15000);
+
+  try {
+    const resposta = await fetch(ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dados),
+      signal: controle.signal,
+    });
+    const retorno = await resposta.json().catch(() => ({}));
+    return resposta.ok && retorno.ok === true;
+  } finally {
+    clearTimeout(limite);
+  }
+}
+
 form.addEventListener("submit", async function (event) {
   event.preventDefault();
+  if (botao.disabled) return;
 
-  // se o campo invisível foi preenchido, é bot — finge sucesso e não envia nada
+  // se o campo invisível foi preenchido, é bot: finge sucesso e não envia nada
   if (form.website.value !== "") {
     form.reset();
     return;
   }
 
-  const campos = form.querySelectorAll("input, select, textarea");
   let primeiroErro = null;
-
   campos.forEach((campo) => {
-    const valido = campoValido(campo);
-    const container = campo.closest(".form-field");
-
-    if (container) container.classList.toggle("invalido", !valido);
-    if (!valido && !primeiroErro) primeiroErro = campo;
+    if (!marcarCampo(campo) && !primeiroErro) primeiroErro = campo;
   });
 
   if (primeiroErro) {
@@ -82,22 +130,19 @@ form.addEventListener("submit", async function (event) {
     return;
   }
 
-  const dados = {
-    name: form.name.value,
-    company: form.company.value,
-    phone: form.phone.value,
-    email: form.email.value,
-    selection: form.selection.value,
-    message: form.message.value,
-    origem: "site-kodha",
-    pagina: location.href,
-  };
+  envioId = envioId || crypto.randomUUID();
 
-  if (!SCRIPT_URL) {
-    avisar("Abrindo o WhatsApp para você finalizar o contato...");
-    window.open(linkWhatsapp(dados), "_blank", "noopener");
-    return;
-  }
+  const dados = {
+    nome: form.name.value.trim(),
+    empresa: form.company.value.trim(),
+    telefone: form.phone.value.trim(),
+    email: form.email.value.trim(),
+    servico: form.selection.value,
+    mensagem: form.message.value.trim(),
+    pagina: location.href,
+    envio_id: envioId,
+    website: form.website.value,
+  };
 
   // innerHTML e não textContent: o botão tem a seta num span dentro dele
   const conteudoOriginal = botao.innerHTML;
@@ -105,26 +150,22 @@ form.addEventListener("submit", async function (event) {
   botao.disabled = true;
   avisar("");
 
+  let enviado = false;
   try {
-    // text/plain de propósito: é o que evita o preflight de CORS do Apps Script
-    await fetch(SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(dados),
-    });
+    enviado = await enviar(dados);
+  } catch (erro) {
+    console.error(erro);
+  }
 
+  botao.innerHTML = conteudoOriginal;
+  botao.disabled = false;
+
+  if (enviado) {
     form.reset();
     pintarSelect();
+    envioId = null;
     avisar("Mensagem enviada. Respondemos em até 24h.", "sucesso");
-  } catch (erro) {
-    avisar("Não conseguimos enviar agora. Vamos continuar pelo WhatsApp?", "erro");
-    window.open(linkWhatsapp(dados), "_blank", "noopener");
-    console.error(erro);
-  } finally {
-    setTimeout(() => {
-      botao.innerHTML = conteudoOriginal;
-      botao.disabled = false;
-    }, 3000);
+  } else {
+    oferecerWhatsapp(dados);
   }
 });

@@ -153,6 +153,13 @@
 .form-status.erro {
   color: #ff7a7a;
 }
+/* reserva quando o envio falha (js/form.js) */
+.form-status a {
+  color: var(--title-color);
+  font-weight: var(--title-weight);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 /*==========tablet==========*/
 @media screen and (min-width: 768px) {
   .contact {
