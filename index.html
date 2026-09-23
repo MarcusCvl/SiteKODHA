@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css?v=4" />
+    <link rel="stylesheet" href="css/style.css?v=5" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="assets/favicon.svg" />
     <title>KODHA | Sites e identidade visual para profissionais independentes</title>
@@ -139,14 +139,13 @@
         </a>
 
         <div class="navigation">
-          <input type="checkbox" id="menu" hidden />
-          <label for="menu" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+          <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navbar">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
-          </label>
+          </button>
 
-          <nav class="navbar">
+          <nav class="navbar" id="navbar">
             <ul class="nav-list">
               <li><a class="nav-link" href="#servicos" title="Navegar até a seção de serviços">Serviços</a></li>
               <li><a class="nav-link" href="#processo" title="Navegar até a seção de processo">Processo</a></li>
@@ -614,9 +613,9 @@
       </div>
     </footer>
 
-    <script src="js/menu.js?v=4" defer></script>
-    <script src="js/reveal.js?v=4" defer></script>
-    <script src="js/connector.js?v=4" defer></script>
-    <script src="js/form.js?v=4" defer></script>
+    <script src="js/menu.js?v=5" defer></script>
+    <script src="js/reveal.js?v=5" defer></script>
+    <script src="js/connector.js?v=5" defer></script>
+    <script src="js/form.js?v=5" defer></script>
   </body>
 </html>

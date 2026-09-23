@@ -55,6 +55,9 @@
   gap: 6px;
   width: 24px;
   height: 18px;
+  padding: 0;
+  border: 0;
+  background: none;
   cursor: pointer;
 }
 .menu-toggle .bar {
@@ -69,15 +72,15 @@
 .menu-toggle .bar:nth-child(2) {
   width: 16px;
 }
-/* barrinhas viram um X quando o menu abre */
-input#menu:checked ~ .menu-toggle .bar:nth-child(1) {
+/* barrinhas viram um X quando o menu abre (js/menu.js) */
+.navigation.aberto .menu-toggle .bar:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
-input#menu:checked ~ .menu-toggle .bar:nth-child(2) {
+.navigation.aberto .menu-toggle .bar:nth-child(2) {
   opacity: 0;
   width: 24px;
 }
-input#menu:checked ~ .menu-toggle .bar:nth-child(3) {
+.navigation.aberto .menu-toggle .bar:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
 /* o painel desce do topo, ocupando a largura toda */
@@ -98,7 +101,7 @@ input#menu:checked ~ .menu-toggle .bar:nth-child(3) {
   transform: translateY(-102%);
   transition: transform 0.42s ease;
 }
-input#menu:checked ~ .navbar {
+.navigation.aberto .navbar {
   transform: translateY(0);
 }
 .nav-list {
@@ -151,7 +154,7 @@ input#menu:checked ~ .navbar {
 }
 /*==========tablet==========*/
 @media screen and (min-width: 900px) {
-  .navigation label {
+  .menu-toggle {
     display: none;
   }
   .menu-overlay {
