@@ -1,6 +1,7 @@
 /*==========mobile==========*/
+/* sem espaço embaixo: quem afasta o Quem somos é o padding de cima dele (css/about.css) */
 .contact {
-  padding: 4rem 0;
+  padding: 4rem 0 0;
 }
 .contact-content {
   display: flex;
@@ -163,7 +164,7 @@
 /*==========tablet==========*/
 @media screen and (min-width: 768px) {
   .contact {
-    padding: 5rem 0;
+    padding: 5rem 0 0;
   }
   .contact-content {
     flex-direction: row;
@@ -186,7 +187,7 @@
 /*==========desktop==========*/
 @media screen and (min-width: 1024px) {
   .contact {
-    padding: 6.5rem 0;
+    padding: 6.5rem 0 0;
   }
   .contact-content {
     gap: 4.5rem;
