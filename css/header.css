@@ -66,11 +66,7 @@
   background-color: var(--title-color);
   transition:
     transform 0.3s,
-    opacity 0.3s,
-    width 0.3s;
-}
-.menu-toggle .bar:nth-child(2) {
-  width: 16px;
+    opacity 0.3s;
 }
 /* barrinhas viram um X quando o menu abre (js/menu.js) */
 .navigation.aberto .menu-toggle .bar:nth-child(1) {
@@ -78,7 +74,6 @@
 }
 .navigation.aberto .menu-toggle .bar:nth-child(2) {
   opacity: 0;
-  width: 24px;
 }
 .navigation.aberto .menu-toggle .bar:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
