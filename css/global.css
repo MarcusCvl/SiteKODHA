@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jura:wght@500;600&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 :root {
   /* ========================================CORES======================================== */
@@ -33,6 +33,7 @@
 
   --ftitle: "Montserrat", sans-serif;
   --ftexts: "Montserrat", sans-serif;
+  --flogo: "Jura", sans-serif;
 
   /*========================================PESO======================================== */
 
@@ -101,19 +102,16 @@ svg {
 /* as seções respiram sempre com a mesma medida */
 .header-content,
 .hero-content,
-.hero-footer-content,
-.essence-content,
+.process-content,
 .services-header,
 .services-cards,
 .why-header,
 .why-cards,
-.process-header,
-.process-steps,
 .projects-header,
 .projects-cards,
 .cta-content,
 .contact-content,
-.trust-content,
+.about-content,
 .footer-content,
 .footer-base {
   width: 100%;
@@ -123,18 +121,6 @@ svg {
 }
 /*========================================UTILITÁRIOS======================================== */
 
-.sprite {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
-.simbolo-azul {
-  fill: var(--primary-color);
-}
-.simbolo-branco {
-  fill: var(--title-color);
-}
 .sr-only {
   position: absolute;
   width: 1px;
@@ -282,19 +268,16 @@ svg {
 @media screen and (min-width: 768px) {
   .header-content,
   .hero-content,
-  .hero-footer-content,
-  .essence-content,
+  .process-content,
   .services-header,
   .services-cards,
   .why-header,
   .why-cards,
-  .process-header,
-  .process-steps,
   .projects-header,
   .projects-cards,
   .cta-content,
   .contact-content,
-  .trust-content,
+  .about-content,
   .footer-content,
   .footer-base {
     padding-inline: 2.5rem;

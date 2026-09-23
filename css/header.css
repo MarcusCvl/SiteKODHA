@@ -36,11 +36,17 @@
   font-weight: var(--title-weight);
   letter-spacing: 0.14em;
 }
-.logo-simbolo {
-  width: 1.1875rem;
-  height: 1.6875rem;
+/* a marca usa a logo de verdade (imagem) e o nome em Jura, no header e no rodapé */
+.logo-img {
+  width: auto;
+  height: 1.875rem;
   flex: none;
-  overflow: visible;
+}
+.logo-nome {
+  font-family: var(--flogo);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
 }
 .navigation {
   position: relative;
@@ -55,6 +61,9 @@
   gap: 6px;
   width: 24px;
   height: 18px;
+  padding: 0;
+  border: 0;
+  background: none;
   cursor: pointer;
 }
 .menu-toggle .bar {
@@ -63,21 +72,16 @@
   background-color: var(--title-color);
   transition:
     transform 0.3s,
-    opacity 0.3s,
-    width 0.3s;
+    opacity 0.3s;
 }
-.menu-toggle .bar:nth-child(2) {
-  width: 16px;
-}
-/* barrinhas viram um X quando o menu abre */
-input#menu:checked ~ .menu-toggle .bar:nth-child(1) {
+/* barrinhas viram um X quando o menu abre (js/menu.js) */
+.navigation.aberto .menu-toggle .bar:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
-input#menu:checked ~ .menu-toggle .bar:nth-child(2) {
+.navigation.aberto .menu-toggle .bar:nth-child(2) {
   opacity: 0;
-  width: 24px;
 }
-input#menu:checked ~ .menu-toggle .bar:nth-child(3) {
+.navigation.aberto .menu-toggle .bar:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
 /* o painel desce do topo, ocupando a largura toda */
@@ -98,7 +102,7 @@ input#menu:checked ~ .menu-toggle .bar:nth-child(3) {
   transform: translateY(-102%);
   transition: transform 0.42s ease;
 }
-input#menu:checked ~ .navbar {
+.navigation.aberto .navbar {
   transform: translateY(0);
 }
 .nav-list {
@@ -151,7 +155,7 @@ input#menu:checked ~ .navbar {
 }
 /*==========tablet==========*/
 @media screen and (min-width: 900px) {
-  .navigation label {
+  .menu-toggle {
     display: none;
   }
   .menu-overlay {

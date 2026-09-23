@@ -9,13 +9,11 @@
   flex-direction: column;
   gap: 2rem;
 }
-.logo-footer .logo-simbolo {
-  width: 1.375rem;
-  height: 1.9375rem;
+.logo-footer .logo-img {
+  height: 2.125rem;
 }
-.logo-footer {
+.logo-footer .logo-nome {
   font-size: 1.25rem;
-  letter-spacing: 0.12em;
 }
 .footer-tagline {
   margin-top: 1rem;
