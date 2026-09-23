@@ -7,8 +7,8 @@
  * 4. Implantar → Nova implantação → tipo "App da Web"
  *      Executar como:  Eu
  *      Quem pode acessar:  Qualquer pessoa
- * 5. Copie a URL gerada e cole em APPS_SCRIPT_URL, no arquivo
- *    assets/js/main.js do site.
+ * 5. Copie a URL gerada e cole no arquivo
+ *    js/form.js do site (constante SCRIPT_URL).
  *
  * Teste rápido: abra a URL no navegador — deve responder {"status":"ok"}.
  */
