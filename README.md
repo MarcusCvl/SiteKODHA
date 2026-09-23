@@ -49,9 +49,11 @@ site-kodha/
 ├── robots.txt
 ├── sitemap.xml
 ├── assets/
-│   ├── favicon.svg
-│   ├── logo-kodha-horizontal.svg   usado no JSON-LD
-│   ├── og-image.png                imagem de compartilhamento (1200×630)
+│   ├── favicon-32.png              ícone da aba do navegador
+│   ├── icon-192.png                ícone para Android e atalhos
+│   ├── apple-touch-icon.png        ícone da tela inicial do iPhone (180×180)
+│   ├── og-image.jpg                imagem de compartilhamento (1200×630, até ~300 KB)
+│   ├── logo-kodha.png              logo com o nome, usada no JSON-LD
 │   └── img/                        logo, fotos e capas dos projetos
 ├── css/
 │   ├── style.css                   só os @import, na ordem da página
