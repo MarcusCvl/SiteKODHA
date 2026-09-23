@@ -5,8 +5,8 @@ const form = document.querySelector(".form");
 const ENDPOINT = "https://uprmkigkvjneuvuvwzyr.supabase.co/functions/v1/lead-site";
 
 // WhatsApp de reserva, oferecido quando o envio falha (só dígitos, com DDI).
-// placeholder: trocar pelo número real da KODHA
-const WHATSAPP = "5532999999999";
+// provisório: número do Elisson — o mesmo do link do rodapé no index.html
+const WHATSAPP = "5561982063819";
 
 const status = form.querySelector(".form-status");
 const botao = form.querySelector(".form-button");
@@ -79,7 +79,7 @@ campos.forEach((campo) => {
 
 function linkWhatsapp(dados) {
   const texto =
-    `Olá, KODHA! Sou ${dados.nome}.` +
+    `Olá, vim pelo site da KODHA! Sou ${dados.nome}.` +
     (dados.empresa ? ` Meu negócio é ${dados.empresa}.` : "") +
     ` Tenho interesse em: ${dados.servico}.` +
     (dados.mensagem ? ` ${dados.mensagem}` : "");

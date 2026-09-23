@@ -178,8 +178,9 @@ trocar `https://kodha.vercel.app/` em:
 
 ## Pendências
 
-- [ ] Número real do WhatsApp em **dois lugares**: `WHATSAPP` em `js/form.js` e o link
-      `wa.me` do rodapé no `index.html`
+- [ ] WhatsApp: hoje usa o número do Elisson, provisório. Quando a KODHA tiver o próprio,
+      trocar em **dois lugares**: `WHATSAPP` em `js/form.js` e o link `wa.me` do rodapé no
+      `index.html` (que já abre com "Olá, vim pelo site da KODHA!")
 - [ ] Domínio próprio: acrescentar em `ORIGENS_PERMITIDAS` da função `lead-site` (e publicar
       de novo) e trocar em `index.html`, `robots.txt` e `sitemap.xml`
 - [ ] Projetos, **MC Personal Consultoria**: capa `assets/img/thumb-mcpc.webp`
