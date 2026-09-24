@@ -168,8 +168,10 @@ svg {
   color: var(--primary-color);
   margin: 0 0.35em;
 }
+/* sobre o azul: escuro sólido (4,45:1, o máximo possível nesse fundo);
+   com transparência ficava em 2,84:1, difícil de ler em 10px */
 .section-title-dark {
-  color: rgba(11, 11, 15, 0.62);
+  color: var(--background-color);
 }
 .icon {
   display: block;
