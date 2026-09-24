@@ -1,6 +1,6 @@
 /*==========mobile==========*/
 .cta {
-  padding: 1.5rem 0;
+  padding: var(--respiro-secao) 0 0;
 }
 /* card azul sobre o carvão: faixa cheia de cor fica brusca demais */
 .cta-card {
@@ -14,6 +14,11 @@
   box-shadow: 0 30px 80px -62px rgba(63, 107, 255, 0.5);
 }
 /* balance: o navegador divide o título em linhas de tamanho parecido, sem palavra sobrando sozinha */
+/* o texto pequeno em cima é um <p> e o título grande é o <h2> da seção.
+   as alturas de linha abaixo mantêm o visual de antes da troca das tags */
+.cta .section-title {
+  line-height: 1.1;
+}
 .cta-title {
   text-wrap: balance;
   margin-top: 1rem;
@@ -68,9 +73,6 @@
 }
 /*==========tablet==========*/
 @media screen and (min-width: 768px) {
-  .cta {
-    padding: 2.5rem 0;
-  }
   .cta-card {
     flex-direction: row;
     align-items: center;

@@ -1,14 +1,19 @@
 /*==========mobile==========*/
-/* sem espaço embaixo: quem afasta o Quem somos é o padding de cima dele (css/about.css) */
 .contact {
-  padding: 4rem 0 0;
+  padding: var(--respiro-secao) 0 0;
 }
 .contact-content {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
+/* o texto pequeno em cima é um <p> e o título grande é o <h2> da seção.
+   as alturas de linha abaixo mantêm o visual de antes da troca das tags */
+.contact .section-title {
+  line-height: 1.1;
+}
 .contact-title {
+  line-height: 1.6;
   margin-top: 0.75rem;
   font-family: var(--ftitle);
   font-size: clamp(1.75rem, 6vw, 2.35rem);
@@ -163,9 +168,6 @@
 }
 /*==========tablet==========*/
 @media screen and (min-width: 768px) {
-  .contact {
-    padding: 5rem 0 0;
-  }
   .contact-content {
     flex-direction: row;
     align-items: flex-start;
@@ -186,9 +188,6 @@
 }
 /*==========desktop==========*/
 @media screen and (min-width: 1024px) {
-  .contact {
-    padding: 6.5rem 0 0;
-  }
   .contact-content {
     gap: 4.5rem;
   }

@@ -1,6 +1,6 @@
 /*==========mobile==========*/
 .services {
-  padding: 4rem 0;
+  padding: var(--respiro-secao) 0 0;
 }
 .services-header {
   display: flex;
@@ -8,7 +8,15 @@
   gap: 0.875rem;
   margin-bottom: 2.25rem;
 }
+/* o texto pequeno em cima é um <p> e o título grande é o <h2> da seção.
+   as alturas de linha abaixo mantêm o visual de antes da troca das tags */
+.services .section-title {
+  line-height: 1.1;
+}
+/* título de duas linhas no celular: linhas justas e quebra equilibrada */
 .services-title {
+  line-height: 1.15;
+  text-wrap: balance;
   margin-top: 0.75rem;
   font-family: var(--ftitle);
   font-size: clamp(1.75rem, 6vw, 2.35rem);
@@ -27,6 +35,7 @@
   gap: 0.875rem;
 }
 .services-cards-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 13rem;
@@ -62,6 +71,30 @@
   line-height: 1;
   color: var(--primary-color);
 }
+/* o link é a seta, mas o ::after estica a área de clique pelo card inteiro (como em Projetos) */
+.services-cards-item-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+/* no celular o navegador pintaria um retângulo só em volta da seta (que é o link de verdade).
+   sai esse destaque padrão e entra um retorno no card inteiro ao tocar */
+.services-cards-item-link {
+  -webkit-tap-highlight-color: transparent;
+}
+.services-cards-item:active {
+  border-color: var(--primary-color);
+  transform: translateY(-1px) scale(0.99);
+}
+/* no teclado, o contorno de foco envolve o card todo e não só a seta */
+.services-cards-item-link:focus-visible {
+  outline: none;
+}
+.services-cards-item:has(.services-cards-item-link:focus-visible) {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 4px;
+}
 .services-cards-item:hover .arrow {
   transform: translateX(5px);
 }
@@ -76,9 +109,6 @@
 }
 /*==========tablet==========*/
 @media screen and (min-width: 768px) {
-  .services {
-    padding: 5rem 0;
-  }
   .services-header {
     flex-direction: row;
     align-items: flex-end;
@@ -95,9 +125,6 @@
 }
 /*==========desktop==========*/
 @media screen and (min-width: 1024px) {
-  .services {
-    padding: 6.5rem 0;
-  }
   .services-cards {
     gap: 1.375rem;
   }
