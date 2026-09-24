@@ -1,11 +1,19 @@
 /*==========mobile==========*/
 .why {
-  padding: 3.5rem 0;
+  padding: var(--respiro-secao) 0 0;
 }
 .why-header {
   margin-bottom: 2rem;
 }
+/* o texto pequeno em cima é um <p> e o título grande é o <h2> da seção.
+   as alturas de linha abaixo mantêm o visual de antes da troca das tags */
+.why .section-title {
+  line-height: 1.1;
+}
+/* título de duas linhas no celular: linhas justas e quebra equilibrada */
 .why-title {
+  line-height: 1.15;
+  text-wrap: balance;
   margin-top: 0.75rem;
   font-family: var(--ftitle);
   font-size: clamp(1.75rem, 6vw, 2.35rem);
@@ -51,9 +59,6 @@
 }
 /*==========tablet==========*/
 @media screen and (min-width: 768px) {
-  .why {
-    padding: 4.5rem 0;
-  }
   .why-cards {
     flex-direction: row;
     gap: 2rem;
@@ -75,9 +80,6 @@
 }
 /*==========desktop==========*/
 @media screen and (min-width: 1024px) {
-  .why {
-    padding: 6rem 0;
-  }
   .why-cards {
     gap: 2.75rem;
   }

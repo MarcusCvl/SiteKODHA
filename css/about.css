@@ -1,6 +1,7 @@
 /*==========mobile==========*/
+/* última seção: o respiro de cima como as outras, e um espaço próprio antes do rodapé */
 .about {
-  padding: 4.5rem 0 5rem;
+  padding: var(--respiro-secao) 0 5rem;
 }
 .about-header .section-title {
   letter-spacing: 0.32em;
@@ -119,7 +120,7 @@
 /*==========tablet==========*/
 @media screen and (min-width: 768px) {
   .about {
-    padding: 6rem 0;
+    padding-bottom: 6rem;
   }
   .about-header {
     max-width: 40rem;
@@ -158,7 +159,7 @@
 /*==========desktop==========*/
 @media screen and (min-width: 1180px) {
   .about {
-    padding: 7.5rem 0;
+    padding-bottom: 7.5rem;
   }
   .about-person-name {
     font-size: 1.75rem;

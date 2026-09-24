@@ -1,6 +1,6 @@
 /*==========mobile==========*/
 .process {
-  padding: 3.5rem 0 5rem;
+  padding: var(--respiro-secao) 0 0;
 }
 .process-header .section-title {
   letter-spacing: 0.32em;
@@ -105,9 +105,6 @@
 }
 /*==========tablet==========*/
 @media screen and (min-width: 768px) {
-  .process {
-    padding: 6rem 0;
-  }
   .process-header {
     max-width: 40rem;
   }
@@ -125,9 +122,6 @@
 }
 /*==========desktop==========*/
 @media screen and (min-width: 1180px) {
-  .process {
-    padding: 7rem 0 7.5rem;
-  }
   .process-steps-item {
     grid-template-columns: 6.5rem minmax(0, 1fr);
   }

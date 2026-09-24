@@ -1,6 +1,6 @@
 /*==========mobile==========*/
 .projects {
-  padding: 4rem 0;
+  padding: var(--respiro-secao) 0 0;
 }
 .projects-header {
   display: flex;
@@ -49,7 +49,13 @@
   transform: translateY(0);
   transition-delay: 0.25s;
 }
+/* o texto pequeno em cima é um <p> e o título grande é o <h2> da seção.
+   as alturas de linha abaixo mantêm o visual de antes da troca das tags */
+.projects .section-title {
+  line-height: 1.1;
+}
 .projects-title {
+  line-height: 1.6;
   margin-top: 0.75rem;
   font-family: var(--ftitle);
   font-size: clamp(1.75rem, 6vw, 2.35rem);
@@ -125,6 +131,14 @@
   inset: 0;
   z-index: 1;
 }
+/* sem o retângulo de toque do navegador em volta do título; o retorno vem na capa */
+.projects-cards-item-link {
+  -webkit-tap-highlight-color: transparent;
+}
+.projects-cards-item:active .projects-cards-item-cover {
+  border-color: var(--primary-color);
+  transform: scale(0.99);
+}
 /* no teclado, o contorno de foco vai no card todo e não só no título */
 .projects-cards-item-link:focus-visible {
   outline: none;
@@ -149,9 +163,6 @@
 }
 /*==========tablet==========*/
 @media screen and (min-width: 768px) {
-  .projects {
-    padding: 5rem 0;
-  }
   .projects-header {
     flex-direction: row;
     align-items: center;
@@ -163,11 +174,5 @@
   }
   .projects-cards-item {
     flex: 1;
-  }
-}
-/*==========desktop==========*/
-@media screen and (min-width: 1024px) {
-  .projects {
-    padding: 6.5rem 0;
   }
 }

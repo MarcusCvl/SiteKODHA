@@ -32,7 +32,7 @@ Na ordem em que aparecem:
 | Hero | `#inicio` | `hero.css` |
 | Processo (essência + etapas) | `#processo` | `process.css` |
 | Serviços | `#servicos` | `services.css` |
-| Por que trabalhar com a gente | — | `why.css` |
+| Por que a KODHA | — | `why.css` |
 | Projetos | `#projetos` | `projects.css` |
 | Chamada para ação | — | `cta.css` |
 | Contato | `#contato` | `contact.css` |
@@ -99,6 +99,14 @@ Qualquer servidor estático serve. Duas opções:
 - Um arquivo por seção, com classes prefixadas pelo nome dela (`.hero-title`,
   `.process-steps-item`…).
 - Cores, tamanhos e raios vêm das variáveis do `:root` em `global.css`.
+- **Espaço entre seções:** cada seção tem `padding-top: var(--respiro-secao)` e nada
+  embaixo, para os espaços nunca se somarem (56px no celular, 96px no tablet, 112px no
+  desktop largo). Exceções: o hero (espaço para o header) e a última seção (espaço antes
+  do rodapé).
+- **Títulos:** o texto pequeno em cima (`.section-title`) é um `<p>`; o título grande da
+  seção é o `<h2>`. O único `<h1>` é o do hero.
+- **Área de toque:** todo botão ou link tem pelo menos 44×44px clicáveis no celular, mesmo
+  que o desenho seja menor (via `padding` ou `::before`/`::after`).
 - Textos de botão que não podem quebrar usam fonte fluida com `clamp()` e são
   testados em 320px.
 
@@ -181,8 +189,9 @@ trocar `https://kodha.vercel.app/` em:
 ## Pendências
 
 - [ ] WhatsApp: hoje usa o número do Elisson, provisório. Quando a KODHA tiver o próprio,
-      trocar em **dois lugares**: `WHATSAPP` em `js/form.js` e o link `wa.me` do rodapé no
-      `index.html` (que já abre com "Olá, vim pelo site da KODHA!")
+      trocar em **quatro lugares**: `WHATSAPP` em `js/form.js` e, no `index.html`, os links `wa.me`
+      do card azul (CTA), do botão "Converse com quem vai criar" (Quem somos) e do ícone do
+      rodapé. Dica: procurar por `5561982063819` acha todos
 - [ ] Domínio próprio: acrescentar em `ORIGENS_PERMITIDAS` da função `lead-site` (e publicar
       de novo) e trocar em `index.html`, `robots.txt` e `sitemap.xml`
 - [ ] Projetos, **MC Personal Consultoria**: capa `assets/img/thumb-mcpc.webp`
