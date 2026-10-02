@@ -124,9 +124,17 @@ window.addEventListener(
 window.addEventListener("load", marcarSecaoAtual);
 marcarSecaoAtual();
 
-// o header só ganha fundo depois que a página sai do topo
+// o header só ganha fundo depois que a página sai do topo.
+// enquanto ele está sobre a parte clara do hero, fica com letras escuras (.claro)
+const fimDoClaro = document.querySelector(".hero-slogan");
+
 function atualizarHeader() {
   header.classList.toggle("fixo", window.scrollY > 12);
+
+  if (fimDoClaro) {
+    const sobreOClaro = fimDoClaro.getBoundingClientRect().bottom + 32 > header.offsetHeight;
+    header.classList.toggle("claro", sobreOClaro);
+  }
 }
 
 atualizarHeader();
