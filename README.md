@@ -190,8 +190,8 @@ trocar `https://kodha.vercel.app/` em:
 
 - [ ] WhatsApp: hoje usa o número do Elisson, provisório. Quando a KODHA tiver o próprio,
       trocar em **quatro lugares**: `WHATSAPP` em `js/form.js` e, no `index.html`, os links `wa.me`
-      do card azul (CTA), do botão "Converse com quem vai criar" (Quem somos) e do ícone do
-      rodapé. Dica: procurar por `5561982063819` acha todos
+      do card azul (CTA), do botão "Converse com quem vai criar" (Quem somos) e do link
+      WhatsApp do rodapé. Dica: procurar por `5561982063819` acha todos
 - [ ] Domínio próprio: acrescentar em `ORIGENS_PERMITIDAS` da função `lead-site` (e publicar
       de novo) e trocar em `index.html`, `robots.txt` e `sitemap.xml`
 - [ ] Projetos, **MC Personal Consultoria**: capa `assets/img/thumb-mcpc.webp`
@@ -211,8 +211,11 @@ Aplicada a partir do **KODHA — Manual da Marca v1.0**.
 - **Tipografia:** Montserrat em todo o site (títulos em SemiBold/Bold, texto em
   Regular/Medium, tracking aberto em rótulos e navegação); Jura só no nome da marca.
 - **Logo:** a versão oficial com degradê, em WebP com fundo transparente:
-  `simbolo-kodha.webp` (115×128) no header e no rodapé, e `simbolo-kodha-grande.webp`
-  (461×512) no hero. O nome **KODHA** é escrito em **Jura** (variável `--flogo`).
+  `simbolo-kodha.webp` (115×128) no header. O nome **KODHA** é escrito em **Jura**
+  (variável `--flogo`). No rodapé, "KODHA" aparece grande em Montserrat Bold, com o
+  slogan "Comunicar. Conectar. Vender."
+- **Portal:** a peça central do hero (`portal-kodha.webp`, fundo transparente): a linha azul
+  atravessando a passagem. É maior que a coluna e sai pela borda direita da tela.
 - **Movimento:** convergir → conectar → avançar. Entradas de ~760 ms, hover de ~300 ms,
   tudo desligado em `prefers-reduced-motion`.
 - **Fio de conexão:** o traço azul que percorre a página é a ideia de conexão do
