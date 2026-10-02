@@ -58,12 +58,12 @@ site-kodha/
 ├── css/
 │   ├── style.css                   só os @import, na ordem da página
 │   ├── global.css                  variáveis, reset, utilitários, botões e reveal
-│   ├── connector.css               o fio azul do fundo
 │   └── <seção>.css                 um arquivo por seção (ver tabela acima)
 ├── js/
-│   ├── menu.js                     menu hambúrguer, header fixo e seção atual no menu
+│   ├── menu.js                     menu hambúrguer, header fixo (claro sobre o hero) e seção atual
 │   ├── reveal.js                   animação de entrada e ano do rodapé
-│   ├── connector.js                desenha o fio azul conforme a página rola
+│   ├── hero.js                     escolhe o K em 3D ou em imagem e dispara a montagem
+│   ├── hero-3d.js                  o K em 3D (three.js): montagem e inclinação com o mouse
 │   ├── form.js                     validação, máscara de telefone e envio
 │   └── projects.js                 aviso de 12s do "Ver mais projetos" (até existir a página)
 └── supabase/
@@ -210,16 +210,19 @@ Aplicada a partir do **KODHA — Manual da Marca v1.0**.
   no apoio e Azul Quasar `#3F6BFF` só como energia (CTAs, foco, ícones e destaques).
 - **Tipografia:** Montserrat em todo o site (títulos em SemiBold/Bold, texto em
   Regular/Medium, tracking aberto em rótulos e navegação); Jura só no nome da marca.
-- **Logo:** a versão oficial com degradê, em WebP com fundo transparente:
-  `simbolo-kodha.webp` (115×128) no header. O nome **KODHA** é escrito em **Jura**
-  (variável `--flogo`). No rodapé, "KODHA" aparece grande em Montserrat Bold, com o
+- **Logo:** no header, só o nome **KODHA** em **Jura** Bold (variável `--flogo`), sem o
+  símbolo. A versão oficial com degradê (`simbolo-kodha.webp`, WebP com fundo
+  transparente) continua em `assets/img/`. No rodapé, "KODHA" aparece grande em Montserrat Bold, com o
   slogan "Comunicar. Conectar. Vender."
-- **Portal:** a peça central do hero (`portal-kodha.webp`, fundo transparente): a linha azul
-  atravessando a passagem. É maior que a coluna e sai pela borda direita da tela.
+- **Hero claro:** a única parte clara do site, que desce em degradê até o escuro. A peça
+  central é o K 3D (`k-kodha.webp`) na frente do "KODHA" escrito (`kodha-escrito.webp`),
+  os dois com fundo transparente. O K é desenhado em 3D (three.js, `js/hero-3d.js`):
+  medidas, câmera, cores e luz foram ajustadas comparando o 3D com o render pixel a pixel.
+  As peças se encaixam ao abrir a página e o K inclina seguindo o mouse (no celular, a
+  rolagem). Sem WebGL, com `prefers-reduced-motion` ou com `?k=imagem` no endereço, entra
+  a imagem: a mesma imagem do K três vezes, cada cópia recortada (`clip-path`) em uma peça.
 - **Movimento:** convergir → conectar → avançar. Entradas de ~760 ms, hover de ~300 ms,
   tudo desligado em `prefers-reduced-motion`.
-- **Fio de conexão:** o traço azul que percorre a página é a ideia de conexão do
-  símbolo aplicada à composição.
 
 ---
 

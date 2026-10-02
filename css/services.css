@@ -25,22 +25,50 @@
   color: var(--title-color);
 }
 .services-cards {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   gap: 0.875rem;
+}
+/* glassmorphism: luzes azuis desfocadas atrás dos cards. sem algo colorido atrás,
+   o vidro não tem o que borrar e o efeito some */
+.services-cards::before {
+  content: "";
+  position: absolute;
+  inset: 8% 4%;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 22% 30%, rgba(63, 107, 255, 0.55), transparent 42%),
+    radial-gradient(circle at 78% 72%, rgba(63, 107, 255, 0.4), transparent 45%),
+    radial-gradient(circle at 55% 45%, rgba(120, 150, 255, 0.18), transparent 50%);
+  filter: blur(48px);
+  pointer-events: none;
 }
 .services-cards-item {
   position: relative;
   display: flex;
   flex-direction: column;
   padding: 1.875rem 1.75rem 1.625rem;
-  border: 1px solid var(--border-color);
+  /* vidro: fundo semitransparente com desfoque do que está atrás, borda clara fina,
+     reflexo no topo e sombra para parecer uma placa flutuando */
+  border: 1px solid rgba(248, 248, 250, 0.1);
   border-radius: var(--radius-md);
-  background: linear-gradient(165deg, var(--card-color), var(--secondary-background));
+  background:
+    linear-gradient(145deg, rgba(248, 248, 250, 0.08), rgba(248, 248, 250, 0.015) 55%),
+    rgba(21, 21, 28, 0.35);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(248, 248, 250, 0.12),
+    0 18px 40px -18px rgba(0, 0, 0, 0.6);
   transition: all 0.42s;
 }
 .services-cards-item:hover {
   border-color: rgba(63, 107, 255, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(248, 248, 250, 0.16),
+    0 22px 48px -18px rgba(63, 107, 255, 0.35);
   transform: translateY(-3px);
 }
 .services-cards-item .icon {

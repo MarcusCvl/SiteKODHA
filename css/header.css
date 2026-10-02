@@ -13,12 +13,25 @@
     background-color 0.42s,
     border-color 0.42s;
 }
-/* só ganha fundo depois que a página rola (js/menu.js) */
+/* só ganha fundo depois que a página rola (js/menu.js). é vidro: translúcido, desfocando
+   o que passa por trás, com um brilho fino na borda de cima e uma linha clara embaixo */
 .header.fixo {
-  background-color: rgba(11, 11, 15, 0.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom-color: var(--border-color);
+  background: linear-gradient(180deg, rgba(248, 248, 250, 0.06), rgba(248, 248, 250, 0.015)), rgba(11, 11, 15, 0.5);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-bottom-color: rgba(248, 248, 250, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(248, 248, 250, 0.06),
+    0 10px 30px -18px rgba(0, 0, 0, 0.6);
+}
+/* com o menu aberto o vidro é o do painel: o header fica transparente por cima dele
+   (um vidro dentro do outro não desfoca, o navegador só aplica o de fora) */
+html.menu-aberto .header.fixo {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: transparent;
+  box-shadow: none;
 }
 .header-content {
   display: flex;
@@ -36,16 +49,11 @@
   font-weight: var(--title-weight);
   letter-spacing: 0.14em;
 }
-/* a marca usa a logo de verdade (imagem) e o nome em Jura, no header e no rodapé */
-.logo-img {
-  width: auto;
-  height: 1.875rem;
-  flex: none;
-}
+/* no header a marca é só o nome, em Jura Bold */
 .logo-nome {
   font-family: var(--flogo);
   font-size: 1.125rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.16em;
 }
 .navigation {
@@ -101,10 +109,15 @@
   gap: 0.25rem;
   width: 100%;
   padding: calc(var(--header-height) + 0.75rem) 1.5rem 1.75rem;
-  background-color: rgba(11, 11, 15, 0.97);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border-color);
+  /* o painel do menu também é vidro, um pouco mais escuro que o header para o texto ler bem */
+  background: linear-gradient(180deg, rgba(248, 248, 250, 0.07), rgba(248, 248, 250, 0.02)), rgba(11, 11, 15, 0.62);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border-bottom: 1px solid rgba(248, 248, 250, 0.1);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  box-shadow:
+    inset 0 -1px 0 rgba(248, 248, 250, 0.05),
+    0 24px 48px -20px rgba(0, 0, 0, 0.7);
   transform: translateY(-102%);
   transition: transform 0.42s ease;
 }
@@ -156,12 +169,27 @@
   position: fixed;
   inset: 0;
   z-index: 80;
-  background-color: rgba(5, 5, 8, 0.62);
+  background-color: rgba(5, 5, 8, 0.35);
   opacity: 0;
   transition: opacity 0.42s;
 }
 .menu-overlay.visivel {
   opacity: 1;
+}
+/* sobre a parte clara do hero (js/menu.js): letras escuras e, depois de rolar, fundo claro.
+   com o menu do celular aberto o painel é escuro, então volta tudo ao normal */
+html:not(.menu-aberto) .header.claro .logo {
+  color: #12131a;
+}
+html:not(.menu-aberto) .header.claro .menu-toggle .bar {
+  background-color: #12131a;
+}
+html:not(.menu-aberto) .header.claro.fixo {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.25)), rgba(245, 246, 249, 0.35);
+  border-bottom-color: rgba(18, 19, 26, 0.07);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 10px 30px -20px rgba(18, 19, 26, 0.35);
 }
 /*==========tablet==========*/
 @media screen and (min-width: 900px) {
@@ -183,6 +211,8 @@
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     border: 0;
+    border-radius: 0;
+    box-shadow: none;
     transform: none;
   }
   .nav-list {
@@ -209,5 +239,14 @@
   .btn-header {
     width: auto;
     margin-top: 0;
+  }
+  .header.claro .nav-link {
+    color: #5a5d6b;
+  }
+  .header.claro .nav-link.ativo {
+    color: #12131a;
+  }
+  .header.claro .nav-link:hover {
+    color: var(--primary-color);
   }
 }

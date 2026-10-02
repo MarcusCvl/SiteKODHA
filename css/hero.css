@@ -1,226 +1,315 @@
 /*==========mobile==========*/
+/* o hero é a única parte clara do site: o fundo claro desce em degradê até o escuro
+   da seção seguinte. as cores ficam aqui para não mexer nas do resto da página */
 .hero {
+  --hero-fundo: #f5f6f9;
+  --hero-titulo: #12131a;
+  --hero-texto: #3a3d4a;
+  --hero-detalhe: #6f7280;
+  /* o degradê ocupa o espaço de baixo do hero */
+  --hero-degrade: 10rem;
+
   position: relative;
-  /* sem espaço embaixo: quem afasta a próxima seção é o padding dela */
-  padding: calc(var(--header-height) + 2.5rem) 0 0;
+  padding: calc(var(--header-height) + 1.75rem) 0 var(--hero-degrade);
   overflow: hidden;
+  /* a passagem do claro para o escuro segue uma curva suave (vários tons no caminho),
+     para não aparecer uma faixa cinza no meio */
+  background: linear-gradient(
+    to bottom,
+    var(--hero-fundo) 0,
+    var(--hero-fundo) calc(100% - var(--hero-degrade)),
+    #eceef2 calc(100% - var(--hero-degrade) * 0.88),
+    #d9dce3 calc(100% - var(--hero-degrade) * 0.76),
+    #b9bcc6 calc(100% - var(--hero-degrade) * 0.64),
+    #8d909c calc(100% - var(--hero-degrade) * 0.52),
+    #5d5f6b calc(100% - var(--hero-degrade) * 0.4),
+    #33343d calc(100% - var(--hero-degrade) * 0.27),
+    #18181f calc(100% - var(--hero-degrade) * 0.14),
+    var(--background-color) 100%
+  );
 }
 .hero-content {
   display: grid;
-  /* minmax(0, 1fr): conteúdo que não quebra nunca alarga a coluna além da tela */
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
     "copy"
-    "portal"
     "texto"
-    "pilares";
+    "marca"
+    "botao"
+    "slogan";
 }
 .hero-copy {
   grid-area: copy;
 }
 .hero-copy .section-title {
   font-size: 0.6875rem;
-  letter-spacing: 0.45em;
+  font-weight: var(--menu-text-weight);
+  letter-spacing: 0.32em;
   line-height: 2;
+  color: var(--hero-detalhe);
 }
 .hero-title {
-  margin-top: 1.25rem;
-  font-size: clamp(2.75rem, 12.5vw, 3.5rem);
-  font-weight: 700;
-  line-height: 1;
+  margin-top: 1rem;
+  font-size: clamp(2.125rem, 9.6vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.02;
   letter-spacing: -0.045em;
+  color: var(--hero-titulo);
 }
-.hero-title span {
-  color: var(--primary-color);
-}
-/* o portal como peça central do hero. a imagem tem fundo transparente e a linha some
-   nas pontas, então ela pode passar da coluna e sair pela borda da tela sem corte visível */
-.hero-portal {
-  grid-area: portal;
-  margin-block: 1.5rem;
-}
-.hero-portal img {
-  display: block;
-  /* no celular a linha ocupa a largura toda da tela, passando por cima da margem */
-  width: calc(100% + 3rem);
-  max-width: none;
-  height: auto;
-  margin-left: -1.5rem;
-}
-.hero-text {
-  grid-area: texto;
-}
-.hero-subtitle {
-  max-width: 32ch;
-  font-size: 1.0625rem;
-  line-height: 1.55;
-  color: var(--text-color);
-}
-.hero-cta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.75rem;
-  margin-top: 1.75rem;
-}
-.hero-cta .primary-button {
-  width: 100%;
-  padding-inline: 1.25rem;
-  white-space: nowrap;
-  /* a fonte acompanha a largura da tela para o texto caber sempre em uma linha */
-  font-size: clamp(0.75rem, (100vw - 6.5rem) / 17, var(--fs-base));
-  font-weight: var(--menu-text-weight);
-}
-.hero-cta .primary-button:hover .arrow {
-  transform: translate(3px, -3px);
-}
-/* link secundário: menor que o botão ao lado, para não competir com ele */
-.hero-link {
-  /* 15px invisíveis em cima levam a área de toque a 44px; a margem negativa devolve o espaço */
-  padding-top: 15px;
-  margin-top: -15px;
-  padding-bottom: 0.375rem;
-  white-space: nowrap;
-  border-bottom: 1.5px solid var(--primary-color);
-  font-size: 0.875rem;
-  transition: color 0.3s;
-}
-.hero-link:hover {
-  color: var(--primary-color);
-}
-/* no celular os três passos viram um detalhe: só as palavras, fechando o hero com a linha */
-.hero-pilares {
-  grid-area: pilares;
-  display: flex;
-  justify-content: center;
-  /* tudo aqui é em em: a linha encolhe inteira em telas estreitas e nunca quebra */
-  font-size: clamp(0.5rem, (100vw - 3.5rem) / 29, var(--fs-sm));
-  margin-top: 2.5rem;
-  padding-bottom: 2.5rem;
-  border-bottom: 1px solid var(--border-color);
-}
-.hero-pilares li {
-  display: flex;
-  align-items: center;
-}
-.hero-pilares li + li::before {
-  content: "";
-  width: 4px;
-  height: 4px;
-  margin-inline: 1.4em;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-}
-.hero-pilares-numero,
-.hero-pilares-texto {
+/* no celular o título fica em duas linhas: "Seu negócio / merece ser visto." */
+.hero-quebra {
   display: none;
 }
-.hero-pilares strong {
+.hero-title br:first-child {
+  display: inline;
+}
+.hero-subtitle {
+  grid-area: texto;
+  max-width: 34ch;
+  margin-top: 1.25rem;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--hero-texto);
+}
+/* o K e o "KODHA": as medidas são frações da largura do bloco, tiradas da referência.
+   --k-largura e --k-esquerda posicionam o K; --k-pe é quanto o pé do K passa da base do KODHA */
+.hero-marca {
+  --k-largura: 0.593;
+  --k-esquerda: 0.196;
+  --k-pe: 0.0665;
+  --k-proporcao: 1.2315; /* altura / largura da imagem do K */
+
+  grid-area: marca;
+  position: relative;
+  /* no celular o KODHA quase encosta nas bordas da tela */
+  margin: 2.25rem -0.75rem 0;
+  aspect-ratio: 1 / calc(var(--k-largura) * var(--k-proporcao));
+}
+.hero-marca-escrito {
+  position: absolute;
+  left: 0;
+  bottom: calc(var(--k-pe) / (var(--k-largura) * var(--k-proporcao)) * 100%);
+  width: 100%;
+  height: auto;
+}
+.hero-k {
+  position: absolute;
+  top: 0;
+  left: calc(var(--k-esquerda) * 100%);
+  width: calc(var(--k-largura) * 100%);
+  aspect-ratio: 933 / 1149;
+}
+/* as três peças são a mesma imagem, cada uma recortada no seu pedaço.
+   os recortes se sobrepõem um pixel para não sobrar fresta quando o K está montado */
+.hero-k-peca {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero-k-haste {
+  clip-path: polygon(0 0, 42.4% 0, 42.4% 100%, 0 100%);
+}
+.hero-k-azul {
+  clip-path: polygon(42.1% 0, 100% 0, 100% 49.1%, 55.9% 49.1%, 54.3% 48.95%, 44.7% 51.3%, 42.1% 51.95%);
+  transform-origin: 43% 51%;
+}
+.hero-k-branca {
+  clip-path: polygon(42.1% 51.75%, 44.7% 51.1%, 54.3% 48.75%, 55.9% 48.9%, 100% 48.9%, 100% 100%, 42.1% 100%);
+  transform-origin: 43% 52%;
+}
+/* versão em 3D (js/hero-3d.js): o canvas cobre o quadro inteiro do render do K
+   (a imagem foi recortada, o quadro original é maior) e sobra 10% para cada lado,
+   para o K inclinar sem ser cortado. as peças em imagem saem de cena */
+.hero-k-3d {
+  position: absolute;
+  left: -27.78%;
+  top: -17.48%;
+  width: 155.88%;
+  height: 135.56%;
+  pointer-events: none;
+}
+.hero.hero-3d .hero-k-peca {
+  display: none;
+}
+.hero:not(.hero-3d) .hero-k-3d {
+  display: none;
+}
+.hero-botao {
+  grid-area: botao;
+  justify-self: stretch;
+  margin-top: 2rem;
+  padding: 1.0625rem 1rem;
+  white-space: nowrap;
+  /* a fonte acompanha a largura da tela para o texto caber sempre em uma linha */
+  font-size: clamp(0.75rem, (100vw - 6.5rem) / 17, 1rem);
   font-weight: var(--menu-text-weight);
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--text-color);
+}
+.hero-botao:hover .arrow {
+  transform: translate(3px, -3px);
+}
+.hero-slogan {
+  grid-area: slogan;
+  justify-self: center;
+  margin-top: 2rem;
+  font-size: 0.9375rem;
+  font-weight: var(--menu-text-weight);
+  letter-spacing: 0.1em;
+  color: var(--hero-titulo);
+}
+.hero-slogan span {
+  color: var(--primary-color);
+}
+/*==========montagem do K (js/hero.js)==========*/
+/* as peças só ficam escondidas se o js estiver rodando; ele põe .montado quando a imagem carrega */
+.js .hero-k-peca,
+.js .hero-marca-escrito,
+.js .hero-slogan {
+  opacity: 0;
+}
+.hero.montado .hero-marca-escrito {
+  animation: hero-escrito 1.1s cubic-bezier(0.16, 0.84, 0.28, 1) both;
+}
+.hero.montado .hero-k-haste {
+  animation: hero-haste 0.95s cubic-bezier(0.16, 0.84, 0.28, 1) 0.2s both;
+}
+.hero.montado .hero-k-branca {
+  animation: hero-branca 0.9s cubic-bezier(0.2, 1.12, 0.36, 1) 0.55s both;
+}
+.hero.montado .hero-k-azul {
+  animation: hero-azul 0.95s cubic-bezier(0.2, 1.16, 0.36, 1) 0.8s both;
+}
+.hero.montado .hero-slogan {
+  animation: hero-escrito 0.8s cubic-bezier(0.16, 0.84, 0.28, 1) 1.45s both;
+}
+@keyframes hero-escrito {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* a haste sobe do chão */
+@keyframes hero-haste {
+  from {
+    opacity: 0;
+    transform: translateY(14%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* a peça branca desliza de baixo, pela direita, e encosta na haste */
+@keyframes hero-branca {
+  from {
+    opacity: 0;
+    transform: translate(16%, 8%) rotate(7deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* a azul desce de cima, pela direita, e se encaixa por último */
+@keyframes hero-azul {
+  from {
+    opacity: 0;
+    transform: translate(12%, -14%) rotate(-9deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .hero-k-peca,
+  .js .hero-marca-escrito,
+  .js .hero-slogan {
+    opacity: 1;
+    animation: none;
+  }
 }
 /*==========tablet==========*/
 @media screen and (min-width: 768px) {
   .hero {
-    padding: calc(var(--header-height) + 4rem) 0 0;
-  }
-  /* texto à esquerda, símbolo à direita, passos em linha embaixo */
-  .hero-content {
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-    grid-template-areas:
-      "copy    portal"
-      "texto   portal"
-      "pilares pilares";
-    column-gap: 2.5rem;
+    --hero-degrade: 13rem;
+    padding-top: calc(var(--header-height) + 3.5rem);
   }
   .hero-title {
-    font-size: clamp(3.5rem, 7.4vw, 5.5rem);
+    font-size: clamp(3.5rem, 7.4vw, 4.5rem);
   }
-  /* a imagem é maior que a coluna: o centro do portal (48,5% da largura da imagem)
-     fica no meio da coluna, a linha começa logo depois do texto e sai pela direita */
-  .hero-portal {
-    align-self: center;
-    margin-block: 0;
+  .hero-subtitle {
+    font-size: 1.25rem;
   }
-  .hero-portal img {
-    width: 180%;
-    margin-left: -37.3%;
+  /* no tablet o bloco mantém as proporções do celular, só não cresce além de 38rem */
+  .hero-marca {
+    justify-self: center;
+    width: min(100%, 38rem);
+    margin-inline: 0;
   }
-  .hero-text {
-    margin-top: 2rem;
-  }
-  .hero-cta {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1.5rem 2rem;
-  }
-  .hero-cta .primary-button {
-    width: auto;
+  .hero-botao {
+    justify-self: center;
     padding-inline: 2rem;
-  }
-  /* a partir do tablet: número, traço e frase, em três colunas */
-  .hero-pilares {
-    display: grid;
-    font-size: var(--fs-base);
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 4.5rem;
-    padding-top: 2.5rem;
-    padding-bottom: 0;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 0;
-  }
-  .hero-pilares li {
-    flex-direction: column;
-    align-items: baseline;
-    gap: 1rem;
-  }
-  .hero-pilares li + li::before {
-    content: none;
-  }
-  .hero-pilares-numero {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    flex: none;
-    font-size: 1.125rem;
-    font-weight: var(--title-weight);
-    font-variant-numeric: tabular-nums;
-    color: var(--primary-color);
-  }
-  .hero-pilares-numero::after {
-    content: "";
-    width: 2rem;
-    height: 1px;
-    background-color: var(--text-color);
-    opacity: 0.5;
-  }
-  .hero-pilares p {
-    font-size: var(--fs-detail);
-    line-height: 1.5;
-  }
-  .hero-pilares-texto {
-    display: inline;
-  }
-  .hero-pilares strong {
-    display: block;
-    margin-bottom: 0.25rem;
-    font-size: 1.0625rem;
-    font-weight: var(--title-weight);
-    letter-spacing: normal;
-    text-transform: none;
-    color: var(--title-color);
-  }
-  .hero-pilares strong::after {
-    content: ".";
   }
 }
 /*==========desktop==========*/
-@media screen and (min-width: 1180px) {
-  .hero-pilares li {
-    flex-direction: row;
-    gap: 1.25rem;
+/* como na referência: texto à esquerda, K no meio, frase à direita, KODHA de ponta a ponta */
+@media screen and (min-width: 1024px) {
+  .hero {
+    --hero-degrade: 16rem;
+    padding-top: calc(var(--header-height) + 6rem);
+  }
+  .hero-content {
+    grid-template-columns: minmax(0, 34fr) minmax(0, 42fr) minmax(0, 24fr);
+    grid-template-areas:
+      "copy   .      texto"
+      "botao  .      texto"
+      "marca  marca  marca"
+      "slogan slogan slogan";
+  }
+  /* o rótulo cabe em uma linha mesmo na coluna estreita do desktop pequeno */
+  .hero-copy .section-title {
+    font-size: clamp(0.625rem, 0.9vw, 0.6875rem);
+    letter-spacing: 0.28em;
+    white-space: nowrap;
+  }
+  .hero-title {
+    font-size: clamp(2.75rem, 4.15vw, 4rem);
+    line-height: 0.98;
+  }
+  .hero-quebra {
+    display: inline;
+  }
+  .hero-subtitle {
+    align-self: center;
+    max-width: none;
+    margin-top: 2.5rem;
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    line-height: 1.45;
+    color: var(--hero-titulo);
+  }
+  .hero-botao {
+    justify-self: start;
+    margin-top: 2rem;
+    padding: 0.9375rem 1.5rem;
+  }
+  /* o bloco sobe por trás do texto: só o KODHA fica abaixo do botão,
+     o K cresce para cima pela coluna do meio, que fica vazia */
+  .hero-marca {
+    --k-largura: 0.42;
+    --k-esquerda: 0.3;
+    --k-pe: 0.025;
+    justify-self: stretch;
+    width: auto;
+    margin: calc((0.05 - (var(--k-largura) * var(--k-proporcao) - 0.1978 - var(--k-pe))) * 100%) 0 0;
+  }
+  .hero-slogan {
+    margin-top: 2.75rem;
+    font-size: 1.0625rem;
+    letter-spacing: 0.12em;
   }
 }

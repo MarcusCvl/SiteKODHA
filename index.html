@@ -5,11 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- avisa o css que o js está rodando: sem ele, nada fica escondido esperando o reveal -->
     <script>document.documentElement.classList.add("js");</script>
+    <!-- three.js para o K em 3D do hero (js/hero-3d.js) -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.min.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+        }
+      }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jura:wght@500;600&family=Montserrat:wght@400..700&display=swap" />
-    <link rel="stylesheet" href="css/style.css?v=57" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jura:wght@500;600;700&family=Montserrat:wght@400..700&display=swap" />
+    <link rel="stylesheet" href="css/style.css?v=85" />
     <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
@@ -109,37 +118,11 @@
   </head>
 
   <body id="topo">
-    <!-- fio de conexão: fundo da página inteira, desenhado em js/connector.js -->
-    <div class="connector" aria-hidden="true">
-      <svg preserveAspectRatio="none" viewBox="0 0 1440 5000">
-        <defs>
-          <linearGradient id="connector-gradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#3F6BFF" stop-opacity="0" />
-            <stop offset=".08" stop-color="#3F6BFF" stop-opacity=".55" />
-            <stop offset=".34" stop-color="#3F6BFF" stop-opacity=".22" />
-            <stop offset=".58" stop-color="#3F6BFF" stop-opacity=".5" />
-            <stop offset=".82" stop-color="#3F6BFF" stop-opacity=".2" />
-            <stop offset="1" stop-color="#3F6BFF" stop-opacity="0" />
-          </linearGradient>
-        </defs>
-        <path
-          class="connector-line"
-          d=""
-          fill="none"
-          stroke="url(#connector-gradient)"
-          stroke-width="1.4"
-          stroke-linecap="round"
-          vector-effect="non-scaling-stroke"
-        />
-      </svg>
-    </div>
-
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 
     <header class="header">
       <div class="header-content">
         <a class="logo" href="#topo" title="Voltar ao topo">
-          <img class="logo-img" src="assets/img/simbolo-kodha.webp" alt="" width="115" height="128" />
           <span class="logo-nome">KODHA</span>
         </a>
 
@@ -170,37 +153,30 @@
         <div class="hero-content">
           <div class="hero-copy reveal">
             <p class="section-title">Estratégia, design e tecnologia</p>
-            <h1 class="hero-title">Sua marca além do <span>Instagram.</span></h1>
+            <h1 class="hero-title">Seu negócio <br class="hero-quebra" />merece <br class="hero-quebra" />ser visto.</h1>
           </div>
 
-          <!-- o portal: a linha azul (conexão) atravessando a passagem da marca -->
-          <div class="hero-portal reveal" aria-hidden="true">
-            <img src="assets/img/portal-kodha.webp" alt="" width="1774" height="887" />
-          </div>
+          <p class="hero-subtitle reveal">
+            Landing pages &amp; Sites para transformar o que você faz em uma presença digital que comunica, conecta e
+            vende.
+          </p>
 
-          <div class="hero-text reveal">
-            <p class="hero-subtitle">Presença digital para transformar atenção em confiança, e confiança em negócio.</p>
-
-            <div class="hero-cta">
-              <a class="primary-button" href="#contato">Vamos construir sua presença <span class="arrow" aria-hidden="true">↗</span></a>
-              <a class="hero-link" href="#processo">Conheça a KODHA</a>
+          <!-- o K 3D na frente do "KODHA" escrito. a mesma imagem do K aparece três vezes,
+               cada cópia recortada em uma peça, para as peças se encaixarem ao abrir a página (js/hero.js) -->
+          <div class="hero-marca" aria-hidden="true">
+            <img class="hero-marca-escrito" src="assets/img/kodha-escrito.webp" alt="" width="1916" height="379" />
+            <div class="hero-k">
+              <img class="hero-k-peca hero-k-haste" src="assets/img/k-kodha.webp" alt="" width="933" height="1149" />
+              <img class="hero-k-peca hero-k-branca" src="assets/img/k-kodha.webp" alt="" width="933" height="1149" />
+              <img class="hero-k-peca hero-k-azul" src="assets/img/k-kodha.webp" alt="" width="933" height="1149" />
             </div>
           </div>
 
-          <ol class="hero-pilares reveal">
-            <li>
-              <span class="hero-pilares-numero">01</span>
-              <p><strong>Comunicar</strong> <span class="hero-pilares-texto">Clareza para sua marca.</span></p>
-            </li>
-            <li>
-              <span class="hero-pilares-numero">02</span>
-              <p><strong>Conectar</strong> <span class="hero-pilares-texto">Confiança em cada contato.</span></p>
-            </li>
-            <li>
-              <span class="hero-pilares-numero">03</span>
-              <p><strong>Vender</strong> <span class="hero-pilares-texto">Presença que gera oportunidades.</span></p>
-            </li>
-          </ol>
+          <a class="primary-button hero-botao reveal" href="#contato">
+            Vamos construir sua presença <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <p class="hero-slogan">Comunicar. Conectar. <span>Vender.</span></p>
         </div>
       </section>
 
@@ -615,11 +591,12 @@
       </div>
     </footer>
 
-    <script src="js/menu.js?v=57" defer></script>
-    <script src="js/reveal.js?v=57" defer></script>
-    <script src="js/connector.js?v=57" defer></script>
-    <script src="js/form.js?v=57" defer></script>
-    <script src="js/projects.js?v=57" defer></script>
+    <script src="js/menu.js?v=85" defer></script>
+    <script src="js/reveal.js?v=85" defer></script>
+    <script src="js/hero.js?v=85" defer></script>
+    <script type="module" src="js/hero-3d.js?v=85"></script>
+    <script src="js/form.js?v=85" defer></script>
+    <script src="js/projects.js?v=85" defer></script>
 
     <!-- Vercel Web Analytics: o script só existe no site publicado na Vercel, então nem é pedido no localhost -->
     <script>
