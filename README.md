@@ -64,6 +64,7 @@ site-kodha/
 │   ├── reveal.js                   animação de entrada e ano do rodapé
 │   ├── hero.js                     escolhe o K em 3D ou em imagem e dispara a montagem
 │   ├── hero-3d.js                  o K em 3D (three.js): montagem e inclinação com o mouse
+│   ├── services.js                 cards de Serviços: inclinação e brilho seguindo o mouse
 │   ├── form.js                     validação, máscara de telefone e envio
 │   └── projects.js                 aviso de 12s do "Ver mais projetos" (até existir a página)
 └── supabase/
