@@ -1,32 +1,23 @@
 /*==========mobile==========*/
-/* o hero é a única parte clara do site: o fundo claro desce em degradê até o escuro
-   da seção seguinte. as cores ficam aqui para não mexer nas do resto da página */
+/* o hero usa o mesmo fundo escuro do resto do site. as cores ficam em variáveis aqui
+   (a versão clara, com degradê até o Processo, está no histórico do git) */
 .hero {
-  --hero-fundo: #f5f6f9;
-  --hero-titulo: #12131a;
-  --hero-texto: #3a3d4a;
-  --hero-detalhe: #6f7280;
-  /* o degradê ocupa o espaço de baixo do hero */
-  --hero-degrade: 10rem;
+  --hero-fundo: var(--background-color);
+  --hero-titulo: var(--title-color);
+  --hero-texto: var(--text-color);
+  --hero-detalhe: #8b8e9b;
 
   position: relative;
-  padding: calc(var(--header-height) + 1.75rem) 0 var(--hero-degrade);
+  /* ocupa a altura toda da tela (svh: sem contar a barra do navegador no celular),
+     com o conteúdo centralizado na vertical. se o conteúdo for maior, o hero cresce */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: calc(var(--header-height) + 1.75rem) 0 2.5rem;
   overflow: hidden;
-  /* a passagem do claro para o escuro segue uma curva suave (vários tons no caminho),
-     para não aparecer uma faixa cinza no meio */
-  background: linear-gradient(
-    to bottom,
-    var(--hero-fundo) 0,
-    var(--hero-fundo) calc(100% - var(--hero-degrade)),
-    #eceef2 calc(100% - var(--hero-degrade) * 0.88),
-    #d9dce3 calc(100% - var(--hero-degrade) * 0.76),
-    #b9bcc6 calc(100% - var(--hero-degrade) * 0.64),
-    #8d909c calc(100% - var(--hero-degrade) * 0.52),
-    #5d5f6b calc(100% - var(--hero-degrade) * 0.4),
-    #33343d calc(100% - var(--hero-degrade) * 0.27),
-    #18181f calc(100% - var(--hero-degrade) * 0.14),
-    var(--background-color) 100%
-  );
+  background: var(--hero-fundo);
 }
 .hero-content {
   display: grid;
@@ -85,8 +76,10 @@
   margin: 2.25rem -0.75rem 0;
   aspect-ratio: 1 / calc(var(--k-largura) * var(--k-proporcao));
 }
+/* o KODHA escrito é cinza-claro na imagem: no fundo escuro ele fica bem apagado */
 .hero-marca-escrito {
   position: absolute;
+  filter: brightness(0.28);
   left: 0;
   bottom: calc(var(--k-pe) / (var(--k-largura) * var(--k-proporcao)) * 100%);
   width: 100%;
@@ -236,8 +229,7 @@
 /*==========tablet==========*/
 @media screen and (min-width: 768px) {
   .hero {
-    --hero-degrade: 13rem;
-    padding-top: calc(var(--header-height) + 3.5rem);
+    padding-top: calc(var(--header-height) + 2.5rem);
   }
   .hero-title {
     font-size: clamp(3.5rem, 7.4vw, 4.5rem);
@@ -260,8 +252,7 @@
 /* como na referência: texto à esquerda, K no meio, frase à direita, KODHA de ponta a ponta */
 @media screen and (min-width: 1024px) {
   .hero {
-    --hero-degrade: 16rem;
-    padding-top: calc(var(--header-height) + 6rem);
+    padding-top: calc(var(--header-height) + 3rem);
   }
   .hero-content {
     grid-template-columns: minmax(0, 34fr) minmax(0, 42fr) minmax(0, 24fr);
@@ -311,5 +302,25 @@
     margin-top: 2.75rem;
     font-size: 1.0625rem;
     letter-spacing: 0.12em;
+  }
+}
+/* notebooks de tela baixa: tudo um pouco mais compacto para o hero caber na altura da tela */
+@media screen and (min-width: 1024px) and (max-height: 860px) {
+  .hero {
+    padding-top: calc(var(--header-height) + 1rem);
+    padding-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-size: clamp(2.5rem, 7.2vh, 4rem);
+  }
+  .hero-botao {
+    margin-top: 1.25rem;
+  }
+  .hero-marca {
+    justify-self: center;
+    width: 88%;
+  }
+  .hero-slogan {
+    margin-top: 1.25rem;
   }
 }

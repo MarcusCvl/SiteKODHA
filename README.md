@@ -60,10 +60,11 @@ site-kodha/
 │   ├── global.css                  variáveis, reset, utilitários, botões e reveal
 │   └── <seção>.css                 um arquivo por seção (ver tabela acima)
 ├── js/
-│   ├── menu.js                     menu hambúrguer, header fixo (claro sobre o hero) e seção atual
+│   ├── menu.js                     menu hambúrguer, header fixo e seção atual no menu
 │   ├── reveal.js                   animação de entrada e ano do rodapé
 │   ├── hero.js                     escolhe o K em 3D ou em imagem e dispara a montagem
 │   ├── hero-3d.js                  o K em 3D (three.js): montagem e inclinação com o mouse
+│   ├── services.js                 cards de Serviços: inclinação e brilho seguindo o mouse
 │   ├── form.js                     validação, máscara de telefone e envio
 │   └── projects.js                 aviso de 12s do "Ver mais projetos" (até existir a página)
 └── supabase/
@@ -214,7 +215,7 @@ Aplicada a partir do **KODHA — Manual da Marca v1.0**.
   símbolo. A versão oficial com degradê (`simbolo-kodha.webp`, WebP com fundo
   transparente) continua em `assets/img/`. No rodapé, "KODHA" aparece grande em Montserrat Bold, com o
   slogan "Comunicar. Conectar. Vender."
-- **Hero claro:** a única parte clara do site, que desce em degradê até o escuro. A peça
+- **Hero:** fundo escuro, como o resto do site. A peça
   central é o K 3D (`k-kodha.webp`) na frente do "KODHA" escrito (`kodha-escrito.webp`),
   os dois com fundo transparente. O K é desenhado em 3D (three.js, `js/hero-3d.js`):
   medidas, câmera, cores e luz foram ajustadas comparando o 3D com o render pixel a pixel.

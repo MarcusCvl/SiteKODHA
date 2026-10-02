@@ -44,6 +44,19 @@
     radial-gradient(circle at 55% 45%, rgba(120, 150, 255, 0.18), transparent 50%);
   filter: blur(48px);
   pointer-events: none;
+  /* as luzes passeiam devagar atrás do vidro */
+  animation: services-luzes 16s ease-in-out infinite alternate;
+}
+@keyframes services-luzes {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(6%, -5%) scale(1.08);
+  }
+  100% {
+    transform: translate(-5%, 4%) scale(0.96);
+  }
 }
 .services-cards-item {
   position: relative;
@@ -70,6 +83,36 @@
     inset 0 1px 0 rgba(248, 248, 250, 0.16),
     0 22px 48px -18px rgba(63, 107, 255, 0.35);
   transform: translateY(-3px);
+}
+/* brilho que acompanha o mouse por dentro do vidro (js/services.js define --mx e --my) */
+.services-cards-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 0%),
+    rgba(120, 150, 255, 0.22),
+    rgba(63, 107, 255, 0.06) 35%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+.services-cards-item:hover::before {
+  opacity: 1;
+}
+/* com o mouse em cima, o card inclina na direção dele e sobe um pouco. os valores vêm do
+   js já suavizados, então aqui não há transição de transform (senão ficaria atrasado) */
+.js .services-cards .services-cards-item.interativo {
+  transform: perspective(900px) translateY(var(--sobe, 0px)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition:
+    border-color 0.42s,
+    box-shadow 0.42s,
+    opacity 0.76s;
+  will-change: transform;
 }
 .services-cards-item .icon {
   width: 1.625rem;
