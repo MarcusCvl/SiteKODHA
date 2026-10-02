@@ -206,11 +206,13 @@ html.menu-aberto .header.fixo {
     gap: 2rem;
     width: auto;
   }
+  /* no centro do header os links ficam sozinhos: um pouco maiores e mais claros que o texto
+     comum, para terem presença sem competir com o botão */
   .nav-link {
     width: auto;
     padding: 0;
-    font-size: var(--fs-detail);
-    color: var(--text-color);
+    font-size: 0.875rem;
+    color: #c4c5cf;
     text-decoration: underline 2px transparent;
     text-underline-offset: 8px;
     transition:
@@ -224,5 +226,25 @@ html.menu-aberto .header.fixo {
   .btn-header {
     width: auto;
     margin-top: 0;
+  }
+  /* no computador: nome à esquerda, links no centro do header e o botão à direita.
+     o menu e o painel "somem" como caixa (display: contents) e os links e o botão viram
+     colunas do header; as laterais com o mesmo tamanho deixam os links no centro exato */
+  .header-content {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+  }
+  .navigation,
+  .navbar {
+    display: contents;
+  }
+  .logo {
+    justify-self: start;
+  }
+  .nav-list {
+    justify-self: center;
+  }
+  .btn-header {
+    justify-self: end;
   }
 }
