@@ -27,6 +27,22 @@
   font-size: var(--fs-detail);
   color: var(--text-color);
 }
+/* avatar (K desenhado): escondido no celular, aparece quando texto e formulário ficam lado a lado */
+.contact-avatar {
+  display: none;
+}
+.contact-avatar svg {
+  width: auto;
+  height: 9.5rem;
+  overflow: visible;
+}
+.avatar-haste,
+.avatar-branco {
+  fill: var(--title-color);
+}
+.avatar-azul {
+  fill: var(--primary-color);
+}
 .form {
   display: flex;
   flex-direction: column;
@@ -168,6 +184,13 @@
 }
 /*==========tablet==========*/
 @media screen and (min-width: 768px) {
+  /* texto e formulário lado a lado: o K aparece centrado na coluna do texto,
+     ocupando o vazio ao lado do formulário */
+  .contact-avatar {
+    display: flex;
+    justify-content: center;
+    margin-top: 3.5rem;
+  }
   .contact-content {
     flex-direction: row;
     align-items: flex-start;
@@ -188,6 +211,9 @@
 }
 /*==========desktop==========*/
 @media screen and (min-width: 1024px) {
+  .contact-avatar svg {
+    height: 11.5rem;
+  }
   .contact-content {
     gap: 4.5rem;
   }

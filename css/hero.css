@@ -11,7 +11,7 @@
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
     "copy"
-    "simbolo"
+    "portal"
     "texto"
     "pilares";
 }
@@ -33,29 +33,19 @@
 .hero-title span {
   color: var(--primary-color);
 }
-/* a logo como peça central do hero */
-.hero-simbolo {
-  grid-area: simbolo;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 4.5rem 0;
+/* o portal como peça central do hero. a imagem tem fundo transparente e a linha some
+   nas pontas, então ela pode passar da coluna e sair pela borda da tela sem corte visível */
+.hero-portal {
+  grid-area: portal;
+  margin-block: 1.5rem;
 }
-.hero-simbolo::before {
-  content: "";
-  position: absolute;
-  inset: 50% auto auto 50%;
-  translate: -50% -50%;
-  width: 22rem;
-  aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(63, 107, 255, 0.22), transparent 62%);
-  pointer-events: none;
-}
-.hero-simbolo img {
-  position: relative;
-  width: auto;
-  height: 7.8rem;
+.hero-portal img {
+  display: block;
+  /* no celular a linha ocupa a largura toda da tela, passando por cima da margem */
+  width: calc(100% + 3rem);
+  max-width: none;
+  height: auto;
+  margin-left: -1.5rem;
 }
 .hero-text {
   grid-area: texto;
@@ -84,11 +74,15 @@
 .hero-cta .primary-button:hover .arrow {
   transform: translate(3px, -3px);
 }
+/* link secundário: menor que o botão ao lado, para não competir com ele */
 .hero-link {
-  padding-bottom: 0.5rem;
+  /* 15px invisíveis em cima levam a área de toque a 44px; a margem negativa devolve o espaço */
+  padding-top: 15px;
+  margin-top: -15px;
+  padding-bottom: 0.375rem;
   white-space: nowrap;
-  border-bottom: 2px solid var(--primary-color);
-  font-size: var(--fs-base);
+  border-bottom: 1.5px solid var(--primary-color);
+  font-size: 0.875rem;
   transition: color 0.3s;
 }
 .hero-link:hover {
@@ -136,22 +130,23 @@
   .hero-content {
     grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
     grid-template-areas:
-      "copy    simbolo"
-      "texto   simbolo"
+      "copy    portal"
+      "texto   portal"
       "pilares pilares";
     column-gap: 2.5rem;
   }
   .hero-title {
     font-size: clamp(3.5rem, 7.4vw, 5.5rem);
   }
-  .hero-simbolo {
-    padding: 0;
+  /* a imagem é maior que a coluna: o centro do portal (48,5% da largura da imagem)
+     fica no meio da coluna, a linha começa logo depois do texto e sai pela direita */
+  .hero-portal {
+    align-self: center;
+    margin-block: 0;
   }
-  .hero-simbolo::before {
-    width: 30rem;
-  }
-  .hero-simbolo img {
-    height: 11.35rem;
+  .hero-portal img {
+    width: 180%;
+    margin-left: -37.3%;
   }
   .hero-text {
     margin-top: 2rem;
@@ -224,12 +219,6 @@
 }
 /*==========desktop==========*/
 @media screen and (min-width: 1180px) {
-  .hero-simbolo img {
-    height: 14.2rem;
-  }
-  .hero-simbolo::before {
-    width: 38rem;
-  }
   .hero-pilares li {
     flex-direction: row;
     gap: 1.25rem;
