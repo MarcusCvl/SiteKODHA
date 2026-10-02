@@ -176,21 +176,6 @@ html.menu-aberto .header.fixo {
 .menu-overlay.visivel {
   opacity: 1;
 }
-/* sobre a parte clara do hero (js/menu.js): letras escuras e, depois de rolar, fundo claro.
-   com o menu do celular aberto o painel é escuro, então volta tudo ao normal */
-html:not(.menu-aberto) .header.claro .logo {
-  color: #12131a;
-}
-html:not(.menu-aberto) .header.claro .menu-toggle .bar {
-  background-color: #12131a;
-}
-html:not(.menu-aberto) .header.claro.fixo {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.25)), rgba(245, 246, 249, 0.35);
-  border-bottom-color: rgba(18, 19, 26, 0.07);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    0 10px 30px -20px rgba(18, 19, 26, 0.35);
-}
 /*==========tablet==========*/
 @media screen and (min-width: 900px) {
   .menu-toggle {
@@ -239,14 +224,5 @@ html:not(.menu-aberto) .header.claro.fixo {
   .btn-header {
     width: auto;
     margin-top: 0;
-  }
-  .header.claro .nav-link {
-    color: #5a5d6b;
-  }
-  .header.claro .nav-link.ativo {
-    color: #12131a;
-  }
-  .header.claro .nav-link:hover {
-    color: var(--primary-color);
   }
 }

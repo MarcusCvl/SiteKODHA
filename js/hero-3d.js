@@ -28,11 +28,21 @@ if (hero && caixa && hero.classList.contains("hero-3d")) {
 function iniciar() {
   /*==========cena==========*/
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  // até 1,5x de resolução: em telas de alta densidade a diferença não aparece e o custo cai bem
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+
+  // navegador desenhando o 3D sem placa de vídeo (aceleração de hardware desligada): fica
+  // travado, então a versão em imagem assume
+  const gl = renderer.getContext();
+  const info = gl.getExtension("WEBGL_debug_renderer_info");
+  const placa = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : "";
+  if (/swiftshader|llvmpipe|software|basic render/i.test(placa)) {
+    renderer.dispose();
+    voltarParaImagem();
+    return;
+  }
   renderer.toneMapping = THREE.NeutralToneMapping;
-  // o fundo do render é branco e o do hero é cinza-claro: o K fica um pouco mais escuro
-  // que no render, para manter a mesma diferença entre as faces e o fundo
-  renderer.toneMappingExposure = 0.88;
+  renderer.toneMappingExposure = 0.93;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.domElement.className = "hero-k-3d";
@@ -54,7 +64,7 @@ function iniciar() {
   luz.position.set(0.03, 11.67, -1.63);
   luz.target.position.set(2, 2, 0);
   luz.castShadow = true;
-  luz.shadow.mapSize.set(2048, 2048);
+  luz.shadow.mapSize.set(1024, 1024);
   luz.shadow.camera.left = -6;
   luz.shadow.camera.right = 6;
   luz.shadow.camera.top = 6;
@@ -80,9 +90,8 @@ function iniciar() {
   texturaRuido.colorSpace = THREE.NoColorSpace;
 
   // as duas cores saíram do render
-  // o branco é um pouco mais escuro que o do render: o fundo do hero é cinza-claro, e com o
-  // branco puro o topo da haste sumia nele
-  const branco = new THREE.MeshStandardMaterial({ color: "#e4e5e9", roughness: 0.9, metalness: 0, bumpScale: 0.3 });
+  // branco quase puro, como no render (no fundo escuro do hero ele se destaca)
+  const branco = new THREE.MeshStandardMaterial({ color: "#f4f5f7", roughness: 0.9, metalness: 0, bumpScale: 0.3 });
   const azul = new THREE.MeshStandardMaterial({ color: "#004ee2", roughness: 0.8, metalness: 0, bumpScale: 0.3 });
 
   /*==========o K==========*/
@@ -284,15 +293,15 @@ function iniciar() {
     return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2);
   };
 
-  let comeco = null;
   let montado = false;
 
-  function montar(agora) {
-    if (comeco === null) comeco = agora;
+  // o tempo da montagem anda junto com os quadros, no máximo 1/30 s por quadro: se o
+  // computador engasgar, a animação desacelera em vez de pular etapas
+  function montar(tempo) {
     let terminou = true;
 
     pecas.forEach((peca) => {
-      const t = Math.min(Math.max((agora - comeco - peca.inicio) / peca.duracao, 0), 1);
+      const t = Math.min(Math.max((tempo - peca.inicio) / peca.duracao, 0), 1);
       if (t < 1) terminou = false;
       const p = (peca.volta ? encaixe : suave)(t);
       const resto = 1 - p;
@@ -318,22 +327,24 @@ function iniciar() {
   }
 
   /*==========inclinação: mouse no computador, rolagem no celular==========*/
-  const semMouse = window.matchMedia("(hover: none)").matches;
+  // o K segue o mouse em qualquer computador; a rolagem só comanda quando não há mouse
+  // (celular, tablet). notebook com tela de toque também usa o mouse
   const inclinacao = { x: 0, y: 0 };
   const destino = { x: 0, y: 0 };
+  let usandoMouse = false;
 
-  if (!semMouse) {
-    window.addEventListener(
-      "pointermove",
-      (evento) => {
-        const mx = (evento.clientX / window.innerWidth) * 2 - 1;
-        const my = (evento.clientY / window.innerHeight) * 2 - 1;
-        destino.y = mx * 0.12;
-        destino.x = my * 0.04;
-      },
-      { passive: true }
-    );
-  }
+  window.addEventListener(
+    "pointermove",
+    (evento) => {
+      if (evento.pointerType === "touch") return;
+      usandoMouse = true;
+      const mx = (evento.clientX / window.innerWidth) * 2 - 1;
+      const my = (evento.clientY / window.innerHeight) * 2 - 1;
+      destino.y = mx * 0.18;
+      destino.x = my * 0.06;
+    },
+    { passive: true }
+  );
 
   function inclinacaoPelaRolagem() {
     const caixaHero = hero.getBoundingClientRect();
@@ -343,16 +354,52 @@ function iniciar() {
   }
 
   /*==========desenho: só enquanto o hero está na tela==========*/
+  // os shaders são preparados antes do primeiro quadro, para a montagem não começar engasgando
+  renderer.compile(cena, camera);
+
   let visivel = true;
   let quadro = null;
+  let anterior = null;
+  let tempoMontagem = 0;
+  let aquecendo = 3; // os primeiros quadros só desenham, sem andar a animação
+  const duracoesDosQuadros = [];
+
+  function parar() {
+    if (quadro !== null) cancelAnimationFrame(quadro);
+    quadro = null;
+    visivel = false;
+  }
 
   function desenhar(agora) {
     quadro = null;
-    if (!montado) montar(agora);
-    if (semMouse) inclinacaoPelaRolagem();
+    const passo = anterior === null ? 16 : agora - anterior;
+    anterior = agora;
 
-    inclinacao.x += (destino.x - inclinacao.x) * 0.06;
-    inclinacao.y += (destino.y - inclinacao.y) * 0.06;
+    if (aquecendo > 0) {
+      aquecendo--;
+    } else if (!montado) {
+      tempoMontagem += Math.min(passo, 1000 / 30);
+      montar(tempoMontagem);
+      // computador sem fôlego para o 3D (mais de 45 ms por quadro durante a montagem):
+      // a versão em imagem assume. pausas longas (aba escondida) não contam
+      if (passo < 250) duracoesDosQuadros.push(passo);
+      if (duracoesDosQuadros.length === 40) {
+        const ordenadas = [...duracoesDosQuadros].sort((a, b) => a - b);
+        if (ordenadas[20] > 45) {
+          parar();
+          renderer.domElement.remove();
+          renderer.dispose();
+          voltarParaImagem();
+          return;
+        }
+      }
+    }
+    if (!usandoMouse) inclinacaoPelaRolagem();
+
+    // suavização pelo tempo, não por quadro: a mesma velocidade a 30 ou a 144 quadros por segundo
+    const suavizar = 1 - Math.exp(-Math.min(passo, 100) / 140);
+    inclinacao.x += (destino.x - inclinacao.x) * suavizar;
+    inclinacao.y += (destino.y - inclinacao.y) * suavizar;
     k.rotation.set(inclinacao.x, inclinacao.y, 0);
 
     renderer.render(cena, camera);
@@ -361,7 +408,10 @@ function iniciar() {
 
   new IntersectionObserver(([entrada]) => {
     visivel = entrada.isIntersecting;
-    if (visivel && quadro === null) quadro = requestAnimationFrame(desenhar);
+    if (visivel && quadro === null && hero.classList.contains("hero-3d")) {
+      anterior = null;
+      quadro = requestAnimationFrame(desenhar);
+    }
   }).observe(hero);
 
   quadro = requestAnimationFrame(desenhar);
