@@ -122,7 +122,8 @@
   height: 135.56%;
   pointer-events: none;
 }
-.hero.hero-3d .hero-k-peca {
+.hero.hero-3d .hero-k-peca,
+.k-3d .hero-k-peca {
   display: none;
 }
 .hero:not(.hero-3d) .hero-k-3d {
@@ -151,7 +152,9 @@
   color: var(--hero-titulo);
 }
 .hero-slogan span {
-  color: var(--primary-color);
+  /* mesmo tom do slogan do rodapé: o azul puro da marca ficava logo abaixo do contraste
+     mínimo de leitura no fundo escuro */
+  color: #4570ff;
 }
 /*==========montagem do K (js/hero.js)==========*/
 /* as peças só ficam escondidas se o js estiver rodando; ele põe .montado quando a imagem carrega */

@@ -87,15 +87,28 @@ const linksDoMenu = [...navbar.querySelectorAll('.nav-link[href^="#"]')];
 const secoesDoMenu = linksDoMenu
   .map((link) => document.querySelector(link.getAttribute("href")))
   .filter(Boolean)
-  .sort((a, b) => a.offsetTop - b.offsetTop);
+  // na ordem em que aparecem na página (sem medir a posição: medir aqui, com a página ainda
+  // carregando, obrigava o navegador a montar o layout às pressas)
+  .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+
+// a posição de cada seção e a altura da página ficam guardadas e só são medidas quando o
+// layout muda (o ResizeObserver avisa depois do layout pronto). medir a cada rolagem podia
+// obrigar o navegador a recalcular a página no meio da rolagem
+let toposDasSecoes = [];
+let alturaDaPagina = 0;
+
+function medirSecoes() {
+  toposDasSecoes = secoesDoMenu.map((secao) => secao.offsetTop);
+  alturaDaPagina = document.documentElement.scrollHeight;
+}
 
 function marcarSecaoAtual() {
   const linha = window.scrollY + window.innerHeight * 0.4;
-  const noFimDaPagina = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+  const noFimDaPagina = window.innerHeight + window.scrollY >= alturaDaPagina - 2;
 
   let atual = null;
-  secoesDoMenu.forEach((secao) => {
-    if (secao.offsetTop <= linha) atual = secao;
+  secoesDoMenu.forEach((secao, i) => {
+    if (toposDasSecoes[i] <= linha) atual = secao;
   });
   // a última seção pode ser baixa demais para alcançar a linha: no fim da página, ela vence
   if (noFimDaPagina) atual = secoesDoMenu[secoesDoMenu.length - 1];
@@ -121,13 +134,18 @@ window.addEventListener(
   },
   { passive: true }
 );
-window.addEventListener("load", marcarSecaoAtual);
-marcarSecaoAtual();
-
 // o header só ganha fundo depois que a página sai do topo
 function atualizarHeader() {
   header.classList.toggle("fixo", window.scrollY > 12);
 }
 
-atualizarHeader();
+// a primeira medida (seções e header) vem do próprio ResizeObserver, que avisa logo depois do
+// primeiro layout: ler posições antes disso, com a página ainda carregando, obrigava o navegador
+// a montar o layout às pressas
+new ResizeObserver(() => {
+  medirSecoes();
+  marcarSecaoAtual();
+  atualizarHeader();
+}).observe(document.body);
+
 window.addEventListener("scroll", atualizarHeader, { passive: true });

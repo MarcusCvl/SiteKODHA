@@ -5,42 +5,60 @@
 // medidas, câmera e luz não são chute: foram ajustadas comparando, pixel a pixel, o 3D
 // com o render do K (assets/img/k-kodha.webp) até os contornos, as faces e os tons baterem.
 // a unidade é a largura da haste
-import * as THREE from "three";
-import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+// o three.js (~170 KB comprimido) só é baixado quando o 3D vai ser usado de verdade: sem WebGL
+// ou com ?k=imagem, o js/hero.js não liga o 3D e nada disso chega a ser pedido
+let THREE, RoundedBoxGeometry, RoomEnvironment;
 
 const hero = document.querySelector(".hero");
 const caixa = document.querySelector(".hero-k");
 
 function voltarParaImagem() {
   hero.classList.remove("hero-3d");
+  // sem a classe k-3d as imagens reserva voltam a aparecer (e só agora são baixadas)
+  document.documentElement.classList.remove("k-3d");
 }
 
-if (hero && caixa && hero.classList.contains("hero-3d")) {
-  try {
-    iniciar();
-  } catch (erro) {
+// o 3D ainda vale? (só deixa de valer se der erro)
+const ainda3D = () => hero.classList.contains("hero-3d");
+
+// devolve a vez para o navegador entre uma etapa pesada e outra: a preparação do 3D vira
+// várias tarefas curtas em vez de uma longa que trava a página
+const ceder = () =>
+  globalThis.scheduler && typeof scheduler.yield === "function"
+    ? scheduler.yield()
+    : new Promise((resolver) => setTimeout(resolver, 0));
+
+// espera a página aparecer na tela antes de começar o 3D: assim o primeiro desenho (título,
+// texto, header) não fica esperando o three.js ser preparado
+const depoisDoPrimeiroDesenho = () =>
+  new Promise((resolver) => requestAnimationFrame(() => setTimeout(resolver, 0)));
+
+if (hero && caixa && ainda3D()) {
+  carregar().catch((erro) => {
     console.warn("K em 3D indisponível, usando a imagem.", erro);
     voltarParaImagem();
-  }
+  });
 }
 
-function iniciar() {
+async function carregar() {
+  await depoisDoPrimeiroDesenho();
+  const [modulo, caixaArredondada, ambiente] = await Promise.all([
+    import("three"),
+    import("three/addons/geometries/RoundedBoxGeometry.js"),
+    import("three/addons/environments/RoomEnvironment.js"),
+  ]);
+  THREE = modulo;
+  RoundedBoxGeometry = caixaArredondada.RoundedBoxGeometry;
+  RoomEnvironment = ambiente.RoomEnvironment;
+  if (ainda3D()) await iniciar();
+}
+
+async function iniciar() {
   /*==========cena==========*/
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   // até 1,5x de resolução: em telas de alta densidade a diferença não aparece e o custo cai bem
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
-  // navegador desenhando o 3D sem placa de vídeo (aceleração de hardware desligada): fica
-  // travado, então a versão em imagem assume
-  const gl = renderer.getContext();
-  const info = gl.getExtension("WEBGL_debug_renderer_info");
-  const placa = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : "";
-  if (/swiftshader|llvmpipe|software|basic render/i.test(placa)) {
-    renderer.dispose();
-    voltarParaImagem();
-    return;
-  }
   renderer.toneMapping = THREE.NeutralToneMapping;
   renderer.toneMappingExposure = 0.93;
   renderer.shadowMap.enabled = true;
@@ -49,6 +67,20 @@ function iniciar() {
   renderer.domElement.setAttribute("aria-hidden", "true");
   caixa.appendChild(renderer.domElement);
   hero.classList.add("hero-3d-carregado");
+  await ceder();
+
+  // estado do desenho (ver "desenho: só quando alguma coisa muda", no fim). fica aqui em cima
+  // porque os observadores de tamanho, o mouse e a rolagem podem chamar acordar() antes
+  // de a preparação terminar; "pronto" segura o desenho até os shaders estarem compilados
+  let pronto = false;
+  let visivel = true;
+  let quadro = null;
+  let anterior = null;
+  let tempoMontagem = 0;
+  let aquecendo = 3; // os primeiros quadros só desenham, sem andar a animação
+  let sujo = true; // há algo novo para desenhar mesmo com tudo parado (ex.: tamanho mudou)
+  // "reduzir movimento": o K aparece já montado e não inclina com mouse nem rolagem
+  const semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const cena = new THREE.Scene();
 
@@ -58,6 +90,7 @@ function iniciar() {
   cena.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
   cena.environmentIntensity = 0.55;
   cena.add(new THREE.HemisphereLight(0xffffff, 0x8f95a3, 1.22));
+  await ceder();
 
   // luz principal quase a pino, um pouco atrás e à esquerda
   const luz = new THREE.DirectionalLight(0xffffff, 1.44);
@@ -214,6 +247,8 @@ function iniciar() {
 
   pecasDoK.add(haste, pecaAzul, pecaBranca);
 
+  await ceder();
+
   /*==========sombra no chão==========*/
   // manchas suaves desenhadas embaixo da haste e do pé da peça branca
   const mancha = document.createElement("canvas");
@@ -259,14 +294,16 @@ function iniciar() {
     quadroAltura * (1 + 2 * sobra)
   );
 
-  function ajustarTamanho() {
-    const largura = renderer.domElement.clientWidth;
-    const altura = renderer.domElement.clientHeight;
-    if (!largura || !altura) return;
-    renderer.setSize(largura, altura, false);
-  }
-  new ResizeObserver(ajustarTamanho).observe(renderer.domElement);
-  ajustarTamanho();
+  // o tamanho vem do próprio ResizeObserver, medido depois do layout: nenhuma leitura de
+  // clientWidth/clientHeight forçando o navegador a recalcular a página no meio do script
+  let tamanhoPronto = false;
+  new ResizeObserver(([entrada]) => {
+    const { width, height } = entrada.contentRect;
+    if (!width || !height) return;
+    renderer.setSize(width, height, false);
+    tamanhoPronto = true;
+    acordar(true);
+  }).observe(renderer.domElement);
 
   /*==========montagem==========*/
   // cada peça sai de um ponto e chega no lugar: posição, giro e opacidade
@@ -336,83 +373,123 @@ function iniciar() {
   window.addEventListener(
     "pointermove",
     (evento) => {
-      if (evento.pointerType === "touch") return;
+      if (evento.pointerType === "touch" || semMovimento) return;
       usandoMouse = true;
       const mx = (evento.clientX / window.innerWidth) * 2 - 1;
       const my = (evento.clientY / window.innerHeight) * 2 - 1;
       destino.y = mx * 0.18;
       destino.x = my * 0.06;
+      acordar();
     },
     { passive: true }
   );
 
-  function inclinacaoPelaRolagem() {
+  // a posição e a altura do hero ficam guardadas e só são medidas quando ele muda de tamanho
+  // (o ResizeObserver mede depois do layout). a rolagem usa só window.scrollY: antes, ler
+  // getBoundingClientRect a cada quadro obrigava a página inteira a recalcular o layout
+  let heroTopo = 0;
+  let heroAltura = 1;
+  new ResizeObserver(() => {
     const caixaHero = hero.getBoundingClientRect();
-    const progresso = Math.min(Math.max(-caixaHero.top / caixaHero.height, 0), 1);
+    heroTopo = caixaHero.top + window.scrollY;
+    heroAltura = caixaHero.height || 1;
+    if (!usandoMouse && !semMovimento) inclinacaoPelaRolagem();
+  }).observe(hero);
+
+  function inclinacaoPelaRolagem() {
+    const progresso = Math.min(Math.max((window.scrollY - heroTopo) / heroAltura, 0), 1);
     destino.y = progresso * 0.5;
     destino.x = progresso * 0.06;
   }
 
-  /*==========desenho: só enquanto o hero está na tela==========*/
-  // os shaders são preparados antes do primeiro quadro, para a montagem não começar engasgando
-  renderer.compile(cena, camera);
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (usandoMouse || semMovimento) return;
+      inclinacaoPelaRolagem();
+      acordar();
+    },
+    { passive: true }
+  );
 
-  let visivel = true;
-  let quadro = null;
-  let anterior = null;
-  let tempoMontagem = 0;
-  let aquecendo = 3; // os primeiros quadros só desenham, sem andar a animação
-  const duracoesDosQuadros = [];
+  /*==========preparação dos shaders==========*/
+  // os shaders são compilados antes do primeiro quadro e, onde o navegador permite, em
+  // paralelo (compileAsync), sem travar a página. compila também a versão final das peças,
+  // já opacas, para o fim da montagem não engasgar
+  await renderer.compileAsync(cena, camera);
+  pecas.forEach((peca) => (peca.malha.material.transparent = false));
+  await renderer.compileAsync(cena, camera);
+  pecas.forEach((peca) => (peca.malha.material.transparent = true));
+  if (!ainda3D()) {
+    renderer.domElement.remove();
+    renderer.dispose();
+    return;
+  }
 
-  function parar() {
-    if (quadro !== null) cancelAnimationFrame(quadro);
-    quadro = null;
-    visivel = false;
+  /*==========desenho: só quando alguma coisa muda==========*/
+  // depois da montagem, com o K parado, nada é redesenhado. o mouse, a rolagem ou uma mudança
+  // de tamanho acordam o desenho, que volta a dormir quando a inclinação chega ao destino
+
+  function acordar(marcarSujo = false) {
+    if (marcarSujo) sujo = true;
+    if (pronto && visivel && quadro === null && ainda3D()) {
+      anterior = null;
+      quadro = requestAnimationFrame(desenhar);
+    }
+  }
+
+  function emMovimento() {
+    return Math.abs(destino.x - inclinacao.x) > 1e-4 || Math.abs(destino.y - inclinacao.y) > 1e-4;
   }
 
   function desenhar(agora) {
     quadro = null;
     const passo = anterior === null ? 16 : agora - anterior;
     anterior = agora;
+    if (!tamanhoPronto) {
+      quadro = requestAnimationFrame(desenhar);
+      return;
+    }
 
     if (aquecendo > 0) {
       aquecendo--;
     } else if (!montado) {
       tempoMontagem += Math.min(passo, 1000 / 30);
       montar(tempoMontagem);
-      // computador sem fôlego para o 3D (mais de 45 ms por quadro durante a montagem):
-      // a versão em imagem assume. pausas longas (aba escondida) não contam
-      if (passo < 250) duracoesDosQuadros.push(passo);
-      if (duracoesDosQuadros.length === 40) {
-        const ordenadas = [...duracoesDosQuadros].sort((a, b) => a - b);
-        if (ordenadas[20] > 45) {
-          parar();
-          renderer.domElement.remove();
-          renderer.dispose();
-          voltarParaImagem();
-          return;
-        }
-      }
     }
-    if (!usandoMouse) inclinacaoPelaRolagem();
 
-    // suavização pelo tempo, não por quadro: a mesma velocidade a 30 ou a 144 quadros por segundo
-    const suavizar = 1 - Math.exp(-Math.min(passo, 100) / 140);
-    inclinacao.x += (destino.x - inclinacao.x) * suavizar;
-    inclinacao.y += (destino.y - inclinacao.y) * suavizar;
+    // suavização pelo tempo, não por quadro: a mesma velocidade a 30 ou a 144 quadros por segundo.
+    // perto do destino, encaixa de vez (senão o desenho nunca pararia, chegando aos milésimos)
+    if (emMovimento()) {
+      const suavizar = 1 - Math.exp(-Math.min(passo, 100) / 140);
+      inclinacao.x += (destino.x - inclinacao.x) * suavizar;
+      inclinacao.y += (destino.y - inclinacao.y) * suavizar;
+    } else {
+      inclinacao.x = destino.x;
+      inclinacao.y = destino.y;
+    }
     k.rotation.set(inclinacao.x, inclinacao.y, 0);
 
     renderer.render(cena, camera);
-    if (visivel) quadro = requestAnimationFrame(desenhar);
+    sujo = false;
+    if (visivel && (!montado || aquecendo > 0 || emMovimento())) {
+      quadro = requestAnimationFrame(desenhar);
+    }
   }
 
   new IntersectionObserver(([entrada]) => {
     visivel = entrada.isIntersecting;
-    if (visivel && quadro === null && hero.classList.contains("hero-3d")) {
-      anterior = null;
-      quadro = requestAnimationFrame(desenhar);
-    }
+    if (visivel) acordar(true);
   }).observe(hero);
 
-  quadro = requestAnimationFrame(desenhar);
+  if (!usandoMouse && !semMovimento) inclinacaoPelaRolagem();
+  inclinacao.x = destino.x;
+  inclinacao.y = destino.y;
+  // sem movimento: pula a entrada, as peças já começam no lugar
+  if (semMovimento) {
+    aquecendo = 0;
+    montar(Infinity);
+  }
+  pronto = true;
+  acordar(true);
 }

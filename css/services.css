@@ -44,8 +44,11 @@
     radial-gradient(circle at 55% 45%, rgba(120, 150, 255, 0.18), transparent 50%);
   filter: blur(48px);
   pointer-events: none;
-  /* as luzes passeiam devagar atrás do vidro */
+  /* as luzes passeiam devagar atrás do vidro (pausadas fora da tela, js/services.js) */
   animation: services-luzes 16s ease-in-out infinite alternate;
+}
+.services-cards.fora-da-tela::before {
+  animation-play-state: paused;
 }
 @keyframes services-luzes {
   0% {

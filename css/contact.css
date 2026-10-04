@@ -145,9 +145,9 @@
   gap: 0.625rem;
   width: 100%;
   padding: 1.0625rem 1.625rem;
-  border: 1px solid var(--primary-color);
+  border: 1px solid var(--primary-button);
   border-radius: var(--radius-sm);
-  background-color: var(--primary-color);
+  background-color: var(--primary-button);
   color: #fff;
   font-family: var(--ftexts);
   font-size: var(--fs-detail);
