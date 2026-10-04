@@ -33,7 +33,9 @@
   color: var(--title-color);
 }
 .footer-slogan span {
-  color: var(--primary-color);
+  /* um tom acima do azul da marca: no fundo escuro, o azul puro ficava logo abaixo do
+     contraste mínimo de leitura (4,45 para 4,5) */
+  color: #4570ff;
 }
 /* Explore e Conecte-se */
 .footer-colunas {

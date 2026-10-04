@@ -54,9 +54,9 @@ site-kodha/
 │   ├── apple-touch-icon.png        ícone da tela inicial do iPhone (180×180)
 │   ├── og-image.jpg                imagem de compartilhamento (1200×630, até ~300 KB)
 │   ├── logo-kodha.png              logo com o nome, usada no JSON-LD
+│   ├── fonts/                      Montserrat e Jura (woff2, só caracteres latinos)
 │   └── img/                        logo, fotos e capas dos projetos
 ├── css/
-│   ├── style.css                   só os @import, na ordem da página
 │   ├── global.css                  variáveis, reset, utilitários, botões e reveal
 │   └── <seção>.css                 um arquivo por seção (ver tabela acima)
 ├── js/
@@ -113,11 +113,10 @@ Qualquer servidor estático serve. Duas opções:
 
 **Cache (`?v=`)**
 
-Os links de CSS e JS levam um número de versão (ex.: `style.css?v=21`). Ao alterar
-**qualquer** CSS ou JS, subir esse número **nos dois lugares**:
-
-- `index.html` (link do `style.css` e os `<script>`)
-- `css/style.css` (todos os `@import`)
+Os links de CSS e JS levam um número de versão (ex.: `hero.css?v=21`). Ao alterar
+**qualquer** CSS ou JS, subir esse número em todos os `<link>` e `<script>` do
+`index.html`. Os CSS ficam todos linkados direto no `<head>` (sem `@import`), para o
+navegador baixar todos ao mesmo tempo.
 
 **Imagens**
 

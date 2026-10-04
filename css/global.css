@@ -1,8 +1,31 @@
+/*========================================FONTES======================================== */
+/* servidas pelo próprio site (assets/fonts), só com os caracteres latinos (português incluso).
+   antes vinham do Google Fonts, que travava o primeiro desenho da página esperando outro site.
+   a Montserrat é variável: um arquivo só cobre do 400 ao 700. da Jura só se usa o Bold (header) */
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../assets/fonts/montserrat-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Jura";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/jura-700-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 :root {
   /* ========================================CORES======================================== */
 
   --primary-color: #3f6bff;
   --primary-hover: #2b52d8;
+  /* fundo dos botões com texto branco: um tom abaixo do azul da marca, para o texto ter o
+     contraste mínimo de leitura (o azul puro dava 4,41; o mínimo é 4,5) */
+  --primary-button: #3a63f0;
   --secondary-hover: #151a2e;
   --background-color: #0b0b0f;
   --secondary-background: #101015;
@@ -144,7 +167,7 @@ svg {
   top: 0;
   z-index: 2000;
   padding: 0.75rem 1.125rem;
-  background-color: var(--primary-color);
+  background-color: var(--primary-button);
   color: #fff;
   border-radius: 0 0 var(--radius-sm) 0;
 }
@@ -198,9 +221,9 @@ svg {
   justify-content: center;
   gap: 0.625rem;
   padding: 1.125rem 2rem;
-  border: 1px solid var(--primary-color);
+  border: 1px solid var(--primary-button);
   border-radius: var(--radius-sm);
-  background-color: var(--primary-color);
+  background-color: var(--primary-button);
   color: #fff;
   font-size: var(--fs-detail);
   font-weight: var(--title-weight);
@@ -278,8 +301,11 @@ button.link-arrow {
     opacity: 1;
     transform: none;
   }
+  /* iteration-count: sem ele, uma animação infinita (as luzes de Serviços) encurtada
+     para 0,01 ms ficaria se repetindo sem parar e a tela tremeria */
   * {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }

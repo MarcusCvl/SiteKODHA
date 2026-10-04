@@ -3,8 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- avisa o css que o js está rodando: sem ele, nada fica escondido esperando o reveal -->
-    <script>document.documentElement.classList.add("js");</script>
+    <!-- js: avisa o css que o js está rodando (sem ele, nada fica escondido esperando o reveal).
+         k-3d: o K do hero vai ser o 3D (js/hero-3d.js). decidido aqui, antes de qualquer desenho,
+         para as imagens reserva do K (escondidas no 3D) nem serem baixadas -->
+    <script>document.documentElement.classList.add("js");if(new URLSearchParams(location.search).get("k")!=="imagem"&&"WebGLRenderingContext"in window)document.documentElement.classList.add("k-3d");</script>
     <!-- three.js para o K em 3D do hero (js/hero-3d.js) -->
     <script type="importmap">
       {
@@ -15,10 +17,27 @@
       }
     </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jura:wght@500;600;700&family=Montserrat:wght@400..700&display=swap" />
-    <link rel="stylesheet" href="css/style.css?v=93" />
+    <!-- o three.js do K em 3D vem do jsDelivr: a conexão já fica aberta enquanto a página carrega -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <!-- o three.js já vem baixando junto com a página; só é executado depois do primeiro desenho
+         (testado: baixar só depois do primeiro desenho deixava o K e a nota piores no celular) -->
+    <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.min.js" crossorigin />
+    <!-- fontes do próprio site (css/global.css): pedidas já no início, junto com o css -->
+    <link rel="preload" href="assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/jura-700-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- um arquivo por seção, na ordem da página. ficam todos aqui (e não em @import dentro de
+         um style.css) para o navegador descobrir e baixar todos ao mesmo tempo -->
+    <link rel="stylesheet" href="css/global.css?v=103" />
+    <link rel="stylesheet" href="css/header.css?v=103" />
+    <link rel="stylesheet" href="css/hero.css?v=103" />
+    <link rel="stylesheet" href="css/process.css?v=103" />
+    <link rel="stylesheet" href="css/services.css?v=103" />
+    <link rel="stylesheet" href="css/why.css?v=103" />
+    <link rel="stylesheet" href="css/projects.css?v=103" />
+    <link rel="stylesheet" href="css/cta.css?v=103" />
+    <link rel="stylesheet" href="css/contact.css?v=103" />
+    <link rel="stylesheet" href="css/about.css?v=103" />
+    <link rel="stylesheet" href="css/footer.css?v=103" />
     <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
@@ -162,11 +181,11 @@
           <!-- o K 3D na frente do "KODHA" escrito. a mesma imagem do K aparece três vezes,
                cada cópia recortada em uma peça, para as peças se encaixarem ao abrir a página (js/hero.js) -->
           <div class="hero-marca" aria-hidden="true">
-            <img class="hero-marca-escrito" src="assets/img/kodha-escrito.webp" alt="" width="1916" height="379" />
+            <img class="hero-marca-escrito" src="assets/img/kodha-escrito-1280.webp" srcset="assets/img/kodha-escrito-640.webp 640w, assets/img/kodha-escrito-800.webp 800w, assets/img/kodha-escrito-1280.webp 1280w, assets/img/kodha-escrito.webp 1916w" sizes="(min-width: 1180px) 1120px, (min-width: 1024px) calc(100vw - 5.5rem), (min-width: 768px) 38rem, calc(100vw - 1.5rem)" alt="" width="1916" height="379" fetchpriority="high" />
             <div class="hero-k">
-              <img class="hero-k-peca hero-k-haste" src="assets/img/k-kodha.webp" alt="" width="933" height="1149" />
-              <img class="hero-k-peca hero-k-branca" src="assets/img/k-kodha.webp" alt="" width="933" height="1149" />
-              <img class="hero-k-peca hero-k-azul" src="assets/img/k-kodha.webp" alt="" width="933" height="1149" />
+              <img class="hero-k-peca hero-k-haste" src="assets/img/k-kodha-720.webp" srcset="assets/img/k-kodha-480.webp 480w, assets/img/k-kodha-720.webp 720w, assets/img/k-kodha.webp 933w" sizes="(min-width: 1180px) 470px, (min-width: 1024px) 38vw, (min-width: 768px) 361px, 54vw" alt="" width="933" height="1149" loading="lazy" />
+              <img class="hero-k-peca hero-k-branca" src="assets/img/k-kodha-720.webp" srcset="assets/img/k-kodha-480.webp 480w, assets/img/k-kodha-720.webp 720w, assets/img/k-kodha.webp 933w" sizes="(min-width: 1180px) 470px, (min-width: 1024px) 38vw, (min-width: 768px) 361px, 54vw" alt="" width="933" height="1149" loading="lazy" />
+              <img class="hero-k-peca hero-k-azul" src="assets/img/k-kodha-720.webp" srcset="assets/img/k-kodha-480.webp 480w, assets/img/k-kodha-720.webp 720w, assets/img/k-kodha.webp 933w" sizes="(min-width: 1180px) 470px, (min-width: 1024px) 38vw, (min-width: 768px) 361px, 54vw" alt="" width="933" height="1149" loading="lazy" />
             </div>
           </div>
 
@@ -349,7 +368,7 @@
         <div class="projects-cards">
           <article class="projects-cards-item reveal">
             <div class="projects-cards-item-cover">
-              <img src="assets/img/thumb-mdev.webp" alt="Página inicial do portfólio de Marcus Carvalho" width="815" height="561" loading="lazy" />
+              <img src="assets/img/thumb-mdev-480.webp" srcset="assets/img/thumb-mdev-480.webp 480w, assets/img/thumb-mdev.webp 815w" sizes="(min-width: 1180px) 357px, (min-width: 768px) 28vw, calc(100vw - 3rem)" alt="Página inicial do portfólio de Marcus Carvalho" width="815" height="561" loading="lazy" decoding="async" />
             </div>
             <h3 class="projects-cards-item-title">
               <a class="projects-cards-item-link" href="https://marcusdevweb.vercel.app/" target="_blank" rel="noopener">
@@ -510,7 +529,7 @@
           <div class="about-people">
             <article class="about-person reveal">
               <div class="about-person-photo">
-                <img src="assets/img/elisson.webp" alt="Elisson, cofundador da KODHA" width="1568" height="672" loading="lazy" />
+                <img src="assets/img/elisson-800.webp" srcset="assets/img/elisson-800.webp 800w, assets/img/elisson-1280.webp 1280w" sizes="(min-width: 1180px) 540px, (min-width: 1024px) 44vw, (min-width: 768px) 42vw, calc(100vw - 3rem)" alt="Elisson, cofundador da KODHA" width="1280" height="549" loading="lazy" decoding="async" />
               </div>
               <h3 class="about-person-name">Elisson</h3>
               <p class="about-person-role">Estratégia &amp; design</p>
@@ -519,7 +538,7 @@
 
             <article class="about-person reveal">
               <div class="about-person-photo">
-                <img src="assets/img/marcus.webp" alt="Marcus Carvalho, cofundador da KODHA" width="1916" height="821" loading="lazy" />
+                <img src="assets/img/marcus-800.webp" srcset="assets/img/marcus-800.webp 800w, assets/img/marcus-1280.webp 1280w" sizes="(min-width: 1180px) 540px, (min-width: 1024px) 44vw, (min-width: 768px) 42vw, calc(100vw - 3rem)" alt="Marcus Carvalho, cofundador da KODHA" width="1280" height="548" loading="lazy" decoding="async" />
               </div>
               <h3 class="about-person-name">Marcus Carvalho</h3>
               <p class="about-person-role">Tecnologia &amp; desenvolvimento</p>
@@ -589,13 +608,13 @@
       </div>
     </footer>
 
-    <script src="js/menu.js?v=93" defer></script>
-    <script src="js/reveal.js?v=93" defer></script>
-    <script src="js/hero.js?v=93" defer></script>
-    <script type="module" src="js/hero-3d.js?v=93"></script>
-    <script src="js/services.js?v=93" defer></script>
-    <script src="js/form.js?v=93" defer></script>
-    <script src="js/projects.js?v=93" defer></script>
+    <script src="js/menu.js?v=103" defer></script>
+    <script src="js/reveal.js?v=103" defer></script>
+    <script src="js/hero.js?v=103" defer></script>
+    <script type="module" src="js/hero-3d.js?v=103"></script>
+    <script src="js/services.js?v=103" defer></script>
+    <script src="js/form.js?v=103" defer></script>
+    <script src="js/projects.js?v=103" defer></script>
 
     <!-- Vercel Web Analytics: o script só existe no site publicado na Vercel, então nem é pedido no localhost -->
     <script>
