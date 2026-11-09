@@ -27,17 +27,17 @@
     <link rel="preload" href="assets/fonts/jura-700-latin.woff2" as="font" type="font/woff2" crossorigin />
     <!-- um arquivo por seção, na ordem da página. ficam todos aqui (e não em @import dentro de
          um style.css) para o navegador descobrir e baixar todos ao mesmo tempo -->
-    <link rel="stylesheet" href="css/global.css?v=103" />
-    <link rel="stylesheet" href="css/header.css?v=103" />
-    <link rel="stylesheet" href="css/hero.css?v=103" />
-    <link rel="stylesheet" href="css/process.css?v=103" />
-    <link rel="stylesheet" href="css/services.css?v=103" />
-    <link rel="stylesheet" href="css/why.css?v=103" />
-    <link rel="stylesheet" href="css/projects.css?v=103" />
-    <link rel="stylesheet" href="css/cta.css?v=103" />
-    <link rel="stylesheet" href="css/contact.css?v=103" />
-    <link rel="stylesheet" href="css/about.css?v=103" />
-    <link rel="stylesheet" href="css/footer.css?v=103" />
+    <link rel="stylesheet" href="css/global.css?v=112" />
+    <link rel="stylesheet" href="css/header.css?v=112" />
+    <link rel="stylesheet" href="css/hero.css?v=112" />
+    <link rel="stylesheet" href="css/process.css?v=112" />
+    <link rel="stylesheet" href="css/services.css?v=112" />
+    <link rel="stylesheet" href="css/why.css?v=112" />
+    <link rel="stylesheet" href="css/projects.css?v=112" />
+    <link rel="stylesheet" href="css/cta.css?v=112" />
+    <link rel="stylesheet" href="css/contact.css?v=112" />
+    <link rel="stylesheet" href="css/about.css?v=112" />
+    <link rel="stylesheet" href="css/footer.css?v=112" />
     <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
@@ -344,7 +344,7 @@
         </div>
       </section>
 
-      <!--==========projetos (capa do card 2 e o card 3 ainda provisórios: o da Raquel está em criação)==========-->
+      <!--==========projetos==========-->
       <section class="projects" id="projetos">
         <div class="projects-header reveal">
           <div>
@@ -379,12 +379,11 @@
           </article>
 
           <article class="projects-cards-item reveal">
-            <!-- capa provisória: trocar o <span> por <img src="assets/img/thumb-mcpc.webp" ...>, como no primeiro card -->
-            <div class="projects-cards-item-cover projects-cards-item-cover-2">
-              <span>MC Personal<em>consultoria</em></span>
+            <div class="projects-cards-item-cover">
+              <img src="assets/img/thumb-mcpc-480.webp" srcset="assets/img/thumb-mcpc-480.webp 480w, assets/img/thumb-mcpc.webp 815w" sizes="(min-width: 1180px) 357px, (min-width: 768px) 28vw, calc(100vw - 3rem)" alt="Página inicial da landing page da MC Personal Consultoria" width="815" height="560" loading="lazy" decoding="async" />
             </div>
             <h3 class="projects-cards-item-title">
-              <a class="projects-cards-item-link" href="https://marcuscvl.github.io/McpersonalConsultoria/" target="_blank" rel="noopener">
+              <a class="projects-cards-item-link" href="https://mcpersonalconsultoria.com.br/" target="_blank" rel="noopener">
                 MC Personal Consultoria<span class="sr-only"> (abre o site em nova aba)</span>
               </a>
             </h3>
@@ -392,12 +391,16 @@
           </article>
 
           <article class="projects-cards-item reveal">
-            <!-- projeto em criação: quando a página existir, trocar a capa pela thumb e pôr o link no título, como nos outros cards -->
-            <div class="projects-cards-item-cover projects-cards-item-cover-3">
-              <span>Raquel<em>fotografia</em></span>
+            <!-- por enquanto o site está no GitHub Pages: trocar o link quando tiver domínio próprio -->
+            <div class="projects-cards-item-cover">
+              <img src="assets/img/thumb-raquel-480.webp" srcset="assets/img/thumb-raquel-480.webp 480w, assets/img/thumb-raquel.webp 815w" sizes="(min-width: 1180px) 357px, (min-width: 768px) 28vw, calc(100vw - 3rem)" alt="Página inicial do site da fotógrafa Raquel Pimentel" width="815" height="560" loading="lazy" decoding="async" />
             </div>
-            <h3 class="projects-cards-item-title">Raquel</h3>
-            <p class="projects-cards-item-text">Fotografia · Em desenvolvimento</p>
+            <h3 class="projects-cards-item-title">
+              <a class="projects-cards-item-link" href="https://marcuscvl.github.io/raquel-pimentel-fotografia/" target="_blank" rel="noopener">
+                Raquel<span class="sr-only"> (abre o site em nova aba)</span>
+              </a>
+            </h3>
+            <p class="projects-cards-item-text">Fotografia · Landing page</p>
           </article>
         </div>
       </section>
@@ -608,13 +611,13 @@
       </div>
     </footer>
 
-    <script src="js/menu.js?v=103" defer></script>
-    <script src="js/reveal.js?v=103" defer></script>
-    <script src="js/hero.js?v=103" defer></script>
-    <script type="module" src="js/hero-3d.js?v=103"></script>
-    <script src="js/services.js?v=103" defer></script>
-    <script src="js/form.js?v=103" defer></script>
-    <script src="js/projects.js?v=103" defer></script>
+    <script src="js/menu.js?v=112" defer></script>
+    <script src="js/reveal.js?v=112" defer></script>
+    <script src="js/hero.js?v=112" defer></script>
+    <script type="module" src="js/hero-3d.js?v=112"></script>
+    <script src="js/services.js?v=112" defer></script>
+    <script src="js/form.js?v=112" defer></script>
+    <script src="js/projects.js?v=112" defer></script>
 
     <!-- Vercel Web Analytics: o script só existe no site publicado na Vercel, então nem é pedido no localhost -->
     <script>
